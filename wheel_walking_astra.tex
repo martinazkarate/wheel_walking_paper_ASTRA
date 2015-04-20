@@ -1,0 +1,150 @@
+\documentclass[a4paper,twocolumn]{esapub2005} % European paper
+\pagestyle{empty}
+
+% introduce this option for the ESA publications style
+\bibliographystyle{alpha}
+
+\usepackage{graphicx} %for figures
+\usepackage{subfig} %for subfigures
+\usepackage[fleqn]{amsmath}    % need for subequations
+\usepackage{multirow} % for complex tables
+\usepackage{multicol} % for columns spliting
+\usepackage{color} %for highlight text
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{units}
+\usepackage{floatrow}
+\usepackage{float}
+\restylefloat{table}
+
+\title{First Experimental Investigations on Wheel-Walking for Improving Triple-Bogie Rover Locomotion Performances}
+
+\author{Robin Nelen}
+\author{Martin Zwick}
+\author{Martin Azkarate}
+\author{Tim Wiese}
+\author{Javier Hidalgo-Carrio}
+\author{Luc Joudrier}
+\author{Pantelis Poulakis}
+\author{Gianfranco Visentin}
+\author{Michel Van Winnendael}
+\affil{European Space Agency, ESA, Noordwijk, The Netherlands}
+\affil{Technische Universit\"at M\"unchen, TUM, Munich, Germany}
+\affil{Robotics Innovation Center, DFKI, Bremen, Germany}
+
+
+\newcommand{\btx}{\textsc{Bib}\TeX}
+\newcommand{\filename}{esapub}
+
+\begin{document}
+
+\keywords{\LaTeX; ESA; macros}
+
+\maketitle
+
+\section*{Abstract}
+On November 2014 a test campaign was carried out in the Automation and Robotics
+Laboratory of ESTEC to evaluate the performance of Wheel Walking manoeuvres in
+different scenarios. This paper shows the experimental results obtained during
+the campaign and the performance analysis made when comparing wheel walking
+with standard rolling.
+
+
+\section{Introduction}
+Planetary rover missions to Mars such as NASA’s MER or MSL have shown a clear
+decrease of the traversing capabilities while rolling across some particular
+surface areas of Mars. Loose soil and fine dust terrain are scenarios where
+rovers might experience the most significant loss of their tractive
+performance. The extreme of these cases was encountered in the Spirit rover
+which got permanently stuck on May 2009 while traversing the loose sandy area
+of Troy {\color{red} [REF]}. Previous studies at JPL
+{\color{red} [REF]} introduce the concept of the Effective Ground
+Pressure (EGP) as a first order of approximation for an inversely proportional
+indicator of the traversing capabilities of a rover. In relation to this,
+ExoMars’ estimated EGP (considering an effectively larger wheel due to its
+flexible properties) is about 2.5 times the one of MER and MSL.  Deployment
+actuators of a triple-bogie rover locomotion platform could in principle be
+used to perform wheelwalking manoeuvres.  How wheel walking could affect the
+traversing capabilities of rovers when driving on the aforementioned
+disadvantageous terrain types is a recurrent debate in planetary robotics
+community.  This led a research group of the Automation and Robotics Lab of
+ESTEC to carry out a testing campaign to evaluate the performance of wheel
+walking motion. ExoTeR, the lab rover prototype that mimics the ExoMars
+locomotion configuration (as design in 2007) in a scaled down version of it,
+was used here for the test campaign. Three different scenarios were considered:
+loose sand, slope and egress. Wheel walking outperformed standard rolling in
+the three of them showing better traction in loose soil, increased gradeability
+and more stability in egress sequences.  This paper briefly presents the ExoTeR
+rover and the wheel walking concept in triple-bogie configurations and focuses
+on the experimental results obtained for all three scenarios, comparing key
+performance metrics between the wheel walking and rolling cases.
+
+
+\section{The ExoMars Test Rover}
+
+
+\section{Wheel Walking Implementation}
+
+Global body commands of motion are commonly performed using a motion model.
+Kinematics motion models have real-time capabilities and are inexpensive in
+comparison with sophisticated wheel-dynamic simulation techniques.  The
+wheel-walking evaluation presented in this paper uses a method which is able to
+\textit{optimally}\footnotemark[2] combine the motion induced at each contact
+point. The primary contribution of the model is fusing, in a unified framework,
+desired body velocities to joint motion commands as a whole.  The
+implementation of a complete motion model behaves more consistent and stable
+than previous wheel-walking techniques. The model makes use of the
+transformation approach~\cite{Tarokh2005} to accurately model 6-DoF kinematics.
+It derives from the work in~\cite{Hidalgo-Carrio2014} to invert the Jacobian
+formula from the odometry kinematics.
+
+The model requires a minimum of two coordinate frames per kinematic chain:
+a robot body frame ($B$) attached to the desired rover center and a
+contact frame ($C_{il}$) defined as a single point of contact between the robot
+and the ground. Those coordinate frames are related to each other by means of
+the Jacobian matrix in the velocity domain. The matrix maps Cartesian to joint velocities and
+relates the rover pose rates to joints and sensed rate quantities as:
+
+\begin{equation}
+    \left[\dot{x}_{B} ~ \dot{y}_{B} ~ \dot{z}_{B} ~ \dot{\phi}_{B} ~ \dot{\theta}_{B} ~ \dot{\psi}_{B} ~ \right]^T =
+    J_{il} \left[\boldsymbol{\dot{q}} ~ \boldsymbol{\dot{\varepsilon}}_{il} \right]^T
+\label{eq:wheeljacobian}
+\end{equation}
+
+where $\boldsymbol{\dot{q}}$ are the desire joint rates to command to the
+actuators.  Different wheel-walking gaits are set by dynamically setting
+constraints in the Jacobian. Each Jacobian defines the contribution of each
+kinematic chain to the body motion allowing the analysis of each chain and
+contact point to the resulting final velocity in the robot body.  Considering a
+single contact angle $\dot{\varepsilon}_{il}$ the $J_{il}$ matrix size is $6
+\times (n + 6)$ where $n$ corresponds to the DoF of the mechanism.  The
+composite rover equations are obtained combining the Jacobian matrices for all
+kinematics chains into a sparse matrix equation of appropriate dimensions. The
+desired solution is obtained by numerically solving a system of equations using
+Weighted Least-Squares.
+
+
+\footnotetext[2]{Optimally here refers to the best estimated value from a
+weighted least-squares perspective.}
+
+\section{Experimental results}
+
+\subsection{Loose sand}
+\subsection{Slope Tests}
+\subsection{Egress Maneuvers}
+\subsection{Results Analysis}
+
+\section{Conclusions}
+
+\section{Future Work}
+
+
+\vspace{-3 mm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \footnotesize
+\bibliographystyle{aa}
+\bibliography{references}
+
+% \end{small}
+\end{document}
