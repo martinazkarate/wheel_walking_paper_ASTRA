@@ -19,15 +19,14 @@
 
 \title{First Experimental Investigations on Wheel-Walking for Improving Triple-Bogie Rover Locomotion Performances}
 
-\author{Robin Nelen}
-\author{Martin Zwick}
 \author{Martin Azkarate}
+\author{Martin Zwick}
 \author{Tim Wiese}
 \author{Javier Hidalgo-Carrio}
-\author{Luc Joudrier}
+\author{Robin Nelen}
 \author{Pantelis Poulakis}
+\author{Luc Joudrier}
 \author{Gianfranco Visentin}
-\author{Michel Van Winnendael}
 \affil{European Space Agency, ESA, Noordwijk, The Netherlands}
 \affil{Technische Universit\"at M\"unchen, TUM, Munich, Germany}
 \affil{Robotics Innovation Center, DFKI, Bremen, Germany}
@@ -43,44 +42,30 @@
 \maketitle
 
 \section*{Abstract}
-On November 2014 a test campaign was carried out in the Automation and Robotics
-Laboratory of ESTEC to evaluate the performance of Wheel Walking manoeuvres in
-different scenarios. This paper shows the experimental results obtained during
-the campaign and the performance analysis made when comparing wheel walking
-with standard rolling.
+On November 2014 a test campaign was carried out in the Automation and Robotics Laboratory of ESTEC to evaluate the performance of Wheel Walking manoeuvres in different scenarios. This paper shows the experimental results obtained during the campaign and the performance analysis made when comparing wheel walking with standard rolling. 
 
 
 \section{Introduction}
-Planetary rover missions to Mars such as NASA’s MER or MSL have shown a clear
-decrease of the traversing capabilities while rolling across some particular
-surface areas of Mars. Loose soil and fine dust terrain are scenarios where
-rovers might experience the most significant loss of their tractive
-performance. The extreme of these cases was encountered in the Spirit rover
-which got permanently stuck on May 2009 while traversing the loose sandy area
-of Troy {\color{red} [REF]}. Previous studies at JPL
-{\color{red} [REF]} introduce the concept of the Effective Ground
-Pressure (EGP) as a first order of approximation for an inversely proportional
-indicator of the traversing capabilities of a rover. In relation to this,
-ExoMars’ estimated EGP (considering an effectively larger wheel due to its
-flexible properties) is about 2.5 times the one of MER and MSL.  Deployment
-actuators of a triple-bogie rover locomotion platform could in principle be
-used to perform wheelwalking manoeuvres.  How wheel walking could affect the
-traversing capabilities of rovers when driving on the aforementioned
-disadvantageous terrain types is a recurrent debate in planetary robotics
-community.  This led a research group of the Automation and Robotics Lab of
-ESTEC to carry out a testing campaign to evaluate the performance of wheel
-walking motion. ExoTeR, the lab rover prototype that mimics the ExoMars
-locomotion configuration (as design in 2007) in a scaled down version of it,
-was used here for the test campaign. Three different scenarios were considered:
-loose sand, slope and egress. Wheel walking outperformed standard rolling in
-the three of them showing better traction in loose soil, increased gradeability
-and more stability in egress sequences.  This paper briefly presents the ExoTeR
-rover and the wheel walking concept in triple-bogie configurations and focuses
-on the experimental results obtained for all three scenarios, comparing key
-performance metrics between the wheel walking and rolling cases.
+Planetary rover missions to Mars such as NASA’s MER or MSL have shown a clear decrease of the traversing capabilities while rolling across some particular surface areas of Mars. Loose soil and fine dust terrain is the scenario where rovers may experience the most significant loss of their tractive performance. The extreme of these cases was encountered in the Spirit rover which got permanently stuck on May 2009 while traversing the loose sandy area of Troy~\cite{SpiritTrap}.
+Previous studies at JPL~\cite{ROB:ROB21481} introduce the concept of the Effective Ground Pressure (EGP) as a first order of approximation for an inversely proportional indicator of the traversing capabilities of a rover. In relation to this, ExoMars’ estimated EGP (considering an effectively larger wheel due to its flexible properties) is about 2.5 times the one of MER and MSL.
+Deployment actuators of a triple-bogie rover locomotion platform could in principle be used to perform wheel-walking manoeuvres.  How wheel walking could affect the traversing capabilities of rovers when driving on the aforementioned disadvantageous terrain types is a recurrent debate in the planetary robotics community.
+The Russians Lunokhod and Marsokhod rovers already used in the past a locomotion concept named peristaltic motion very similar to the wheel walking concept explained in this paper  with which they claimed to gain "amazing  slope climbing and obstacle overcoming capabilities"~\cite{Ehrenfreund1998}.
+This led the Automation \& Robotics Lab of ESTEC to initiate an internal project aiming at the development of wheel-walking control algorithms and the assessment of the subsequent locomotion performances. The target platform of this investigation is a triple-bogie laboratory prototype, namely ExoTeR.
+This paper briefly presents the ExoTeR rover in section 2 and the wheel-walking concept in triple-bogie locomotion configurations in section 3, and focuses in section 4 on the first experimental results obtained for three different operational scenarios, comparing key performance metrics between the wheel walking and rolling locomotion modes. The three operational scenarios considered are: 1) entrapment in loose sand, 2) upslope traverse and 3) rover egress. Section 5 gives the conclusions drawn from these experiments and in section 6 the future work and test plan is explained.
+
 
 
 \section{The ExoMars Test Rover}
+The rover platform used for the experiments described hereafter is an ExoMars-like scaled down version laboratory prototype. The ExoMars Testing Rover (ExoTeR)~\cite{Azkarate2015} mimics the locomotion configuration of ExoMars (according to its design in 2007/8), a.k.a. triple bogie passive suspension, with a parallelogram structure on top of each bogie. The locomotion subsystem comprises 6 wheels and 16 actuated joints, i.e. 6 driving, 4 steering and 6 deployment –or walking– motors. 
+Motion control electronics are a network of servo-drives, namely Elmo Whistles, connected in a CAN Bus together with the on-board computer. A driver module in the OBC acts as a CAN Master implementing the CANOpen protocol and sends joint commands timely synchronised to perform a certain locomotion manoeuvre. Each Whistle then takes care of the close-loop control of one axis to reach the commanded (position and/or velocity) set point. 
+Figure 1 illustrates the locomotion system of ExoTeR. Inside the uncovered body the motion control electronics can be seen.
+
+PictureExoterRover2013
+
+The platform dimensions are approximately 70x70cm in foot print and 40cm high. The wheels are 14cm in diameter and 8-9cm in width, which together with its total mass of 23.92 kg are equivalent to an EGP of xx.
+The rover system currently includes a mast structure and PTU mechanism with mechanical interfaces to attach a stereo camera and a ToF camera as well. Other sensors include an Inertial Measurement Unit, and incremental encoders and absolute position sensors for the active and passive joints of the locomotion kinematic chain.
+The system is used to perform R\&D activities in the fields of: system integration, locomotion performance, control architecture design and implementation, and sensor data fusion among others. 
+
 
 
 \section{Wheel Walking Implementation}
@@ -136,7 +121,13 @@ weighted least-squares perspective.}
 
 \section{Conclusions}
 
+The wheel-walking locomotion mode outperformed standard rolling in all the tested scenarios demonstrating better traction in loose soil, increased gradeability performance and improved stability limit during egress sequences. Future rover exploration missions like ExoMars or Sample Fetching Rover could potentially benefit from the increased locomotion capabilities of wheel walking to reduce the chances of getting stuck in loose soil, to enable safe egress operations or to simply allow a faster or more effective navigation by reducing the ground track to straight distance ratio.
+
 \section{Future Work}
+
+Following the results of these first experiments, the Automation \& Robotics Lab of ESTEC has decided to continue this research path and has planned further tests to get more experimental data and increase the confidence on the performance of wheel walking. 
+Future tests will focus on slope tests to better assess the gradeability of different wheel walking gaits in several types of soil.
+The next testing campaign is planned for March 2015 in the Robotics Mechanics Centre (RMC) of DLR Oberpfaffenhofen.
 
 
 \vspace{-3 mm}
