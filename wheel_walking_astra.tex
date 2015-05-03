@@ -18,13 +18,13 @@
 \graphicspath{{img/}}  
 \restylefloat{table}
 
-\title{First Experimental Investigations on Wheel-Walking for Improving Triple-Bogie Rover Locomotion Performances}
+\title{First Experimental Investigations on Wheel Walking for Improving Triple-Bogie Rover Locomotion Performances}
 
 \author{Martin Azkarate}
 \author{Martin Zwick}
-\author{Tim Wiese}
 \author{Javier Hidalgo-Carrio}
 \author{Robin Nelen}
+\author{Tim Wiese}
 \author{Pantelis Poulakis}
 \author{Luc Joudrier}
 \author{Gianfranco Visentin}
@@ -43,35 +43,36 @@
 \maketitle
 
 \section*{Abstract}
-On November 2014 a test campaign was carried out in the Automation and Robotics Laboratory of ESTEC to evaluate the performance of Wheel Walking manoeuvres in different scenarios. This paper shows the experimental results obtained during the campaign and the performance analysis made when comparing wheel walking with standard rolling. 
 
+\textbf{On November 2014 a test campaign was carried out in the Automation and Robotics Laboratory of ESTEC to evaluate the performance of Wheel Walking manoeuvres in different scenarios. This paper shows the experimental results obtained during the campaign and the performance analysis made when comparing wheel walking with standard rolling.}
 
 \section{Introduction}
-Planetary rover missions to Mars such as NASA’s MER or MSL have shown a clear decrease of the traversing capabilities while rolling across some particular surface areas of Mars. Loose soil and fine dust terrain is the scenario where rovers may experience the most significant loss of their tractive performance. The extreme of these cases was encountered in the Spirit rover which got permanently stuck on May 2009 while traversing the loose sandy area of Troy~\cite{SpiritTrap}.
-Previous studies at JPL~\cite{ROB:ROB21481} introduce the concept of the Effective Ground Pressure (EGP) as a first order of approximation for an inversely proportional indicator of the traversing capabilities of a rover. In relation to this, ExoMars’ estimated EGP (considering an effectively larger wheel due to its flexible properties) is about 2.5 times the one of MER and MSL.
-Deployment actuators of a triple-bogie rover locomotion platform could in principle be used to perform wheel-walking manoeuvres.  How wheel walking could affect the traversing capabilities of rovers when driving on the aforementioned disadvantageous terrain types is a recurrent debate in the planetary robotics community.
-The Russians Lunokhod and Marsokhod rovers already used in the past a locomotion concept named peristaltic motion very similar to the wheel walking concept explained in this paper  with which they claimed to gain "amazing  slope climbing and obstacle overcoming capabilities"~\cite{Ehrenfreund1998}.
+
+Planetary rover missions to Mars such as NASA's MER or MSL have shown a clear decrease of the traversing capabilities while rolling across some particular surface areas of Mars. Loose soil and fine dust terrain is the scenario where rovers may experience the most significant loss of their tractive performance. The extreme of these cases was encountered in the Spirit rover which got permanently stuck on May 2009 while traversing the loose sandy area of Troy ~\cite{SpiritTrap}.
+
+Previous studies at JPL ~\cite{ROB:ROB21481} introduce the concept of the Effective Ground Pressure (EGP) as a first order of approximation for an inversely proportional indicator of the traversing capabilities of a rover. In relation to this, ExoMars' estimated EGP (considering an effectively larger wheel due to its flexible properties) is about 2.5 times the one of MER and MSL.
+
+Deployment actuators of a triple-bogie rover locomotion platform could in principle be used to perform wheel-walking manoeuvres.  How wheel walking could affect the traversing capabilities of rovers when driving on the aforementioned disadvantageous terrain types is a recurrent debate in the planetary robotics community. The Russians Lunokhod and Marsokhod rovers already used in the past a locomotion concept named peristaltic motion very similar to the wheel walking concept explained in this paper  with which they claimed to gain "amazing  slope climbing and obstacle overcoming capabilities" ~\cite{Ehrenfreund1998}.
+
 This led the Automation \& Robotics Lab of ESTEC to initiate an internal project aiming at the development of wheel-walking control algorithms and the assessment of the subsequent locomotion performances. The target platform of this investigation is a triple-bogie laboratory prototype, namely ExoTeR.
-This paper briefly presents the ExoTeR rover in section 2 and the wheel-walking concept in triple-bogie locomotion configurations in section 3, and focuses in section 4 on the first experimental results obtained for three different operational scenarios, comparing key performance metrics between the wheel walking and rolling locomotion modes. The three operational scenarios considered are: 1) entrapment in loose sand, 2) upslope traverse and 3) rover egress. Section 5 gives the conclusions drawn from these experiments and in section 6 the future work and test plan is explained.
 
+This paper briefly presents the ExoTeR rover in section 2 and the wheel-walking concept in triple-bogie locomotion configurations in section 3, and focuses in section 4 on the first experimental results obtained for three different operational scenarios, comparing key performance metrics between the wheel walking and rolling locomotion modes. The three operational scenarios considered are: 1) entrapment in loose sand, 2) up-slope traverse and 3) rover egress. Section 5 gives the conclusions drawn from these experiments and in section 6 the future work and test plan is explained.
 
+\section{The ExoMars Testing Rover}
 
-\section{The ExoMars Test Rover}
-The rover platform used for the experiments described hereafter is an ExoMars-like scaled down version laboratory prototype. The ExoMars Testing Rover (ExoTeR)~\cite{Azkarate2015} mimics the locomotion configuration of ExoMars (according to its design in 2007/8), a.k.a. triple bogie passive suspension, with a parallelogram structure on top of each bogie. The locomotion subsystem comprises 6 wheels and 16 actuated joints, i.e. 6 driving, 4 steering and 6 deployment –or walking– motors. 
-Motion control electronics are a network of servo-drives, namely Elmo Whistles, connected in a CAN Bus together with the on-board computer. A driver module in the OBC acts as a CAN Master implementing the CANOpen protocol and sends joint commands timely synchronised to perform a certain locomotion manoeuvre. Each Whistle then takes care of the close-loop control of one axis to reach the commanded (position and/or velocity) set point. 
-Figure 1 illustrates the locomotion system of ExoTeR. Inside the uncovered body the motion control electronics can be seen.
+The rover platform used for the experiments described hereafter is an ExoMars-like scaled down version laboratory prototype. The ExoMars Testing Rover (ExoTeR)~\cite{Azkarate2015} mimics the locomotion configuration of ExoMars (according to its design in 2007/8), a.k.a. triple bogie passive suspension, with a parallelogram structure on top of each bogie. The locomotion subsystem comprises 6 wheels and 16 actuated joints, more precisely, 6 driving, 4 steering and 6 deployment –or walking– motors. 
+Motion control electronics are a network of servo-drives, namely Elmo Whistles, connected in a CAN Bus together with the on-board computer. A driver module in the OBC acts as a CAN Master implementing the CANOpen protocol and sends joint commands timely synchronised to perform a certain locomotion manoeuvre. Each servo-drive takes care of the close-loop control of one active joint to reach the commanded (position and/or velocity) set point. 
+Figure 1 illustrates the locomotion system of ExoTeR. Inside the uncovered body the motion control electronics can also be seen.
 
 \begin{figure}[h!]
 	\centering		\includegraphics[width=0.9\textwidth]{ExoterRover2013.JPG}	
-	\caption{Setup on outdoor beach volleyball court}
+	\caption{ExoTeR Rover, 2013}
 	\label{fig:volley}
 \end{figure}
 
 The platform dimensions are approximately 70x70cm in foot print and 40cm high. The wheels are 14cm in diameter and 8-9cm in width, which together with its total mass of 23.92 kg are equivalent to an EGP of xx.
 The rover system currently includes a mast structure and PTU mechanism with mechanical interfaces to attach a stereo camera and a ToF camera as well. Other sensors include an Inertial Measurement Unit, and incremental encoders and absolute position sensors for the active and passive joints of the locomotion kinematic chain.
 The system is used to perform R\&D activities in the fields of: system integration, locomotion performance, control architecture design and implementation, and sensor data fusion among others. 
-
-
 
 \section{Wheel Walking Implementation}
 
@@ -83,7 +84,7 @@ wheel-walking evaluation presented in this paper uses a method which is able to
 point. The primary contribution of the model is fusing, in a unified framework,
 desired body velocities to joint motion commands as a whole.  The
 implementation of a complete motion model behaves more consistent and stable
-than previous wheel-walking techniques. The model makes use of the
+than previous wheel walking techniques. The model makes use of the
 transformation approach~\cite{Tarokh2005} to accurately model 6-DoF kinematics.
 It derives from the work in~\cite{Hidalgo-Carrio2014} to invert the Jacobian
 formula from the odometry kinematics.
@@ -102,14 +103,14 @@ relates the rover pose rates to joints and sensed rate quantities as:
 \end{equation}
 
 where $\boldsymbol{\dot{q}}$ are the desire joint rates to command to the
-actuators.  Different wheel-walking gaits are set by dynamically setting
+actuators.  Different wheel walking gaits (i.e. motion patterns) are set by dynamically setting
 constraints in the Jacobian. Each Jacobian defines the contribution of each
 kinematic chain to the body motion allowing the analysis of each chain and
 contact point to the resulting final velocity in the robot body.  Considering a
 single contact angle $\dot{\varepsilon}_{il}$ the $J_{il}$ matrix size is $6
 \times (n + 6)$ where $n$ corresponds to the DoF of the mechanism.  The
 composite rover equations are obtained combining the Jacobian matrices for all
-kinematics chains into a sparse matrix equation of appropriate dimensions. The
+kinematic chains into a sparse matrix equation of appropriate dimensions. The
 desired solution is obtained by numerically solving a system of equations using
 Weighted Least-Squares.
 
@@ -119,17 +120,15 @@ weighted least-squares perspective.}
 
 \section{Experimental results}
 
-Three different scenarios are considered to evaluate the traversability performance of the Wheel Walking locomotion mechanisms, each of them referring to situations where the rover could potentially benefit from the wheel walking actuation.
+Three different scenarios are considered to evaluate the traversability performance of the wheel walking locomotion mechanisms, each of them referring to situations where the rover could potentially benefit from the wheel walking actuation.
 
-%================================================================
-%================================================================
 \subsection{Loose sand}
-This test is supposed so simulate a trapped situation from which the rover should free itself. It is the first WheelWalking performance test executed with ExoTeR and has a very much improvised setup. The baseline of the test is to verify the operative readiness of the implemented WheelWalking algorithms in a load wise representative environment.
+This test is supposed to simulate a trapped situation from which the rover should free itself. It is the first wheel walking performance test executed with ExoTeR. The baseline of the test is to verify the operative readiness of the implemented wheel walking algorithms in a load wise representative environment.
 
 \subsubsection{Setup}
-The test facility is an outdoor volleyball court on a sunny day (see picture \ref{fig:volley}). The sandy part the rover is driving on has no overall slope. The soil is a normal beach volleyball silica sand with a mixed grain size of 0.063 - 2.0 mm. Due to previous rainfall some days before, the soil is slightly moist and develops cohesive properties as seen in picture \ref{fig:volleyexoterdigg}. The sand gets equally prepared with a raking procedure into approximately 10 cm depth before each run.
-The Rover is commanded wireless and runs on battery. No ground truth system is used in this experiment. 
-%The rover was tested on a quartz sand with quartz gravel similar to the outdoor beach volleyball sand.The objective of the test was to verify the operative readiness of the implemented WheelWalking algorithms in a load wise representative environment. Picture \ref{fig:volley} shows the used setup. It consists of the ESTEC beach volleyball court, a bench, a camera, a power supply, a generator (not in the picture) and a ground control station (not in the picture).
+The test facility is improvised in an outdoor volleyball court on a sunny day (see picture \ref{fig:volley}). The sandy part the rover is driving on has no overall slope. The soil is a normal beach volleyball silica sand with a mixed grain size of 0.063 - 2.0 mm. Due to previous rainfall some days before, the soil is slightly moist and develops cohesive properties as seen in picture \ref{fig:volleyexoterdigg}. The sand gets equally prepared with a raking procedure into approximately 10 cm depth before each run.
+The rover is commanded wireless and runs on battery. No ground truth system is used in this experiment. 
+%The rover was tested on a quartz sand with quartz gravel similar to the outdoor beach volleyball sand. The objective of the test was to verify the operative readiness of the implemented WheelWalking algorithms in a load wise representative environment. Picture \ref{fig:volley} shows the used setup. It consists of the ESTEC beach volleyball court, a bench, a camera, a power supply, a generator (not in the picture) and a ground control station (not in the picture).
 
 %Soil BeachVolleyball: Silica sand [dry and moist], grainsize:0.063 - 2 mm , wet/moist => cohesive soil
 
@@ -139,12 +138,10 @@ The Rover is commanded wireless and runs on battery. No ground truth system is u
 	\label{fig:volley}
 \end{figure}
 
-
-
 \subsubsection{Test procedure}
 
-The used procedure is divided in two characteristic parts. The first part is to get the Rover stuck in a repeatable way. Therefore the rear bogie is tied to the bench with a detachable rope. With the rope on tension, the Rover starts driving away from the bench. Once the drawbar pull and the tension have the same value, the Rover does not exceed any forward motion anymore and keeps digging itself into the ground as happened in Figure \ref{fig:volleyexoterdigg}. This stops once the rear wheels are sunk by half their diameter into the soil.
-After that, the rope gets untied and part two starts. The system restarts in NormalDriving or WheelWalking mode and the data starts recording. 
+The used procedure is divided in two characteristic parts. The first part is to get the rover stuck in a repeatable way. Therefore the rear bogie is tied to the bench with a detachable rope. With the rope on tension, the rover starts driving away from the bench. Once the drawbar pull and the tension have the same value, the rover does not produce any forward motion anymore and keeps digging itself into the ground as shown in Figure \ref{fig:volleyexoterdigg}. This stops once the rear wheels are sunk by half their diameter into the soil.
+After that, the rope gets untied and part two starts. The system restarts in normal driving or wheel walking mode and the data starts recording. 
 
 \begin{figure}[h!]
 	\centering		\includegraphics[width=0.9\textwidth]{volleyexoterdigg.JPG}	
@@ -152,9 +149,8 @@ After that, the rope gets untied and part two starts. The system restarts in Nor
 	\label{fig:volleyexoterdigg}
 \end{figure}
 
-
 \subsubsection{Tests}
-The two modes that are compared are NormalDriving versus the Side-by-Side WheelWalking gait. Both are commanded at a 2 $\frac{cm}{s}$ body velocity. 
+The two modes that are compared are normal driving versus the [Side-by-Side] wheel walking gait. Both are commanded at a 2 $\frac{cm}{s}$ body velocity. 
 
 \begin{figure}[h!]
 	\centering	
@@ -166,22 +162,22 @@ The two modes that are compared are NormalDriving versus the Side-by-Side WheelW
 								\includegraphics[width=0.45\textwidth]{volleystuck30.png}
 								\includegraphics[width=0.45\textwidth]{volleystuck45.png}
 							}
-	\caption{top-left:t=0s,  top-right:t=15s, bottom-left:t=30s, bottom-right:t=45s; each picture has Wheelwalking on the left half and NormalDriving on its right half }
+	\caption{top-left:t=0s,  top-right:t=15s, bottom-left:t=30s, bottom-right:t=45s; each picture has wheel walking on the left half and normal driving on its right half }
 	\label{fig:volleysequence}
 \end{figure}
 
-The photo array in figure \ref{fig:volleysequence} shows the progress of the two modes, NormalDriving and WheelWalking while trying to set them self free. The result is a tremendous benefit of WheelWalking. After 45 seconds, normal driving reaches 3 cm and thereby averages a 97\% slip ratio. The WheelWalking run is completely freed after 20 seconds. Assuming that under normal circumstances, the rover gets trapped while normal driving, it would be even more unlikely that it would be able to free itself without WheelWalking.
+The photo array in figure \ref{fig:volleysequence} shows the progress of the two modes, normal driving and wheel walking while trying to set the rover free. The result is a tremendous benefit of wheel walking. After 45 seconds, normal driving reaches 3 cm and thereby averages a 97\% slip ratio. The wheel walking run is completely freed after 20 seconds. Assuming that under normal circumstances, the rover gets trapped while normal driving, it would be even more unlikely that it would be able to free itself without wheel walking.
 
 %The metric for this test had a binary format. On the one hand, the rover failed to get out of the stuck ( $ > 99 \% $  slip ratio) situation using standard driving actuation. On the other hand, using wheel walking locomotion in approx. 20 seconds the rover was able to overcome the situation and achieve to perform at commanded rover body velocity ( $ < 10 \% $ slip ratio).
-
-
 
 %================================================================
 %================================================================
 \subsection{Slope Tests}
 
+[Missing introduction]
+
 \subsubsection{Setup}
-The objective of the experiments is to test the wheel walking capability on slopes. The rover has to drive from the bottom to the top of the slope in two modes and successfully repeat this three times per mode. First the rover performs the traverse three times in normal driving mode followed by three tests in wheel walking mode. The basic tests are done on 0$^{\circ}$, 10$^{\circ}$, 15$^{\circ}$ \& 20$^{\circ}$ slope angles. 
+The objective of the experiments is to test the wheel walking capability on slopes. The rover has to drive from the bottom to the top of the slope in two modes and successfully repeat this three times per mode. First the rover performs the traverse three times in normal driving mode followed by three tests in wheel walking mode. The tests are done on 0$^{\circ}$, 10$^{\circ}$, 15$^{\circ}$ \& 20$^{\circ}$ slope angles. 
 
 \paragraph{Soil characteristics and environment}
 The different slope angles are realized with a soil filled one axis automotive trailer (see photo \ref{fig:trailer}). It's pivot is the single axis which allows an inclination form approximately -10$^{\circ}$ up to +25$^{\circ}$. Due to the limited bearing capacity of the trailer, only a 2m $\times$ 1.1m $\times$ 0.25m (length $\times$ width $\times$ depth) is filled with soil. Cardboard boxes fill the leftover volume. In this setup, the filling depth is more than twice the wheel diameter and the distance to any walls during a test run is high enough to assume  the boundary effects to be negligible. 
@@ -203,7 +199,7 @@ A 100 Hz Vicon tracking system is used for the ground truth and orientation. The
 %_____________________________________________________________
 
 
-\paragraph{Test procedure}
+\subsubsection{Test procedure}
 %placing, soil preparation, gaits, number of repeatings, abort cirieria, 
 
 
@@ -222,42 +218,42 @@ For further comparison purpose the unit of slip-ratio is used as shown in formul
 		\label{eq:slip}
 \end{equation}
 
-Prior to the here analyzed tests, there have been qualification runs on a 17.5$^/circ$ slope to define the superior gait.
+Prior to the here analysed tests, there have been qualification runs on a 17.5$^{\circ}$ slope to define the superior gait.
 The side-by-side gait performed best in terms of slip and heading stability and was therefore chosen. 
 
 %Other gaits were also used on the dry run tests and after the plan for slope tests had been completed. All other tested gaits (AXLE_BY_AXLE and EVEN_ODD or TRIPOD) showed to have worse performance in the preliminary tests, i.e. higher slip ratios. 
 
-The following plots (\ref{fig:00d}, \ref{fig:10d}, \ref{fig:15d} \& \ref{fig:20d}) show the resulting slip ratios obtained in each of the slope angles for standard driving and wheel walking. All off them show three usable WheelWalking tests and three NormalDriving tests. These sets are always shown in the same coloring. The blue lines represent the slip of the three NormalDriving tests on a scale from 0 to 1. The red ones do the same for the WheelWalking tests. The distance the NormalDriving accomplished in respect to the time are represented in green. Cyan shows the distance over time for the WheelWalking ones.
+The following plots (\ref{fig:00d}, \ref{fig:10d}, \ref{fig:15d} \& \ref{fig:20d}) show the resulting slip ratios obtained in each of the slope angles for standard driving and wheel walking. All off them show three valid wheel walking tests and three normal driving tests. These sets are always shown in the same coloring. The blue lines represent the slip of the three normal driving tests on a scale from 0 to 1. The red ones do the same for the wheel walking tests. The distance the normal driving accomplished in respect to the time are represented in green. Cyan shows the distance over time for the wheel walking ones.
 
 In the 0$^\circ$ run (Figure \ref{fig:00d}) the different driving modes have barely any performance difference even though all WW lines show a slightly better performance in the slip plots. But this difference is negligible for such low slip values. Both plot groups show a small peek in the first 10 seconds in which the rover develops a little sinkage and goes into steady state. 
 
 
 \begin{figure}[h!]
 	\centering		\includegraphics[width=0.9\textwidth]{00d.JPG}	
-	\caption{Comparison between WheelWalking and NormalDriving on flat terrain}
+	\caption{Comparison between wheel walking and normal driving on flat terrain}
 	\label{fig:00d}
 \end{figure}
 
-The performance difference in the 10$^\circ$ slope already show the benefit of WheelWalking compared to NormalDriving. The slip value of WW is about 50\% less than in the other case. Still, the slip for both is considered low.
+The performance difference in the 10$^\circ$ slope already show the benefit of wheel walking compared to normal driving. The slip value of former is about 50\% less than in the later case. Still, the slip for both is considered low.
 At 15$^\circ$ slope however (Figure \ref{fig:15d}), the difference gets way more visible in terms of traversed distance. 
-Figure \ref{fig:20d} with its 20$^\circ$ slope shows the biggest performance difference. The travelled distance is roughly double in case of WheelWalking, what means that it has half the average slip. The average slip for WheelWalking for the three runs was 82.4\% compared to 89.2\% in the NormalDriving (averaged in steady state from t=75s - t=250s). 
-The small periodic ripples in the WheelWalking runs are generated by the walking motion. While having slip ratios above approximately 10\%, the rover starts waving around a point in between the two rear axels which is not the rover origin. Therefore the tracking shows ripples with a frequency of about 0.7Hz
+Figure \ref{fig:20d} with its 20$^\circ$ slope shows the biggest performance difference. The travelled distance is roughly double in case of wheel walking, what means that it has half the average slip. The average slip for wheel walking for the three runs was 82.4\% compared to 89.2\% in the normal driving (averaged in steady state from t=75s - t=250s). 
+The small periodic ripples in the wheel walking runs are generated by the walking motion. While having slip ratios above approximately 10\%, the rover starts waving around a point in between the two rear axels which is not the rover origin. Therefore the tracking shows ripples with a frequency of about 0.7Hz
 
 \begin{figure}[h!]
 	\centering		\includegraphics[width=0.9\textwidth]{10d.JPG}	
-	\caption{Comparison between WheelWalking and NormalDriving on a 10$^{\circ}$ Slope}
+	\caption{Comparison between wheel walking and normal driving on a 10$^{\circ}$ Slope}
 	\label{fig:10d}
 \end{figure}
 
 \begin{figure}[h!]
 	\centering		\includegraphics[width=0.9\textwidth]{15d.JPG}	
-	\caption{Comparison between WheelWalking and NormalDriving on a 15$^{\circ}$ Slope}
+	\caption{Comparison between wheel walking and normal driving on a 15$^{\circ}$ Slope}
 	\label{fig:15d}
 \end{figure}
 
 \begin{figure}[h!]
 	\centering		\includegraphics[width=0.9\textwidth]{20d.JPG}	
-	\caption{Comparison between WheelWalking and NormalDriving on a 20$^{\circ}$ Slope}
+	\caption{Comparison between wheel walking and normal driving on a 20$^{\circ}$ Slope}
 	\label{fig:20d}
 \end{figure}
 
@@ -265,13 +261,13 @@ The small periodic ripples in the WheelWalking runs are generated by the walking
 
 A series of tests at 20$^{\circ}$ slope angle were run changing the step length at each run, from 2.5 cm to 12.5 cm incrementing the step length by 2.5 cm at each test. The results of these series of tests are inconclusive so far, as no specific relation can be identified between the step length and the slip ratio.
 
-Other experimental tests include running the system backwards and/or fixing the walking motors to the position equal to the angular value of the slope. This is supposed to reduce the load in the back wheels of the rover by shifting the CoM forward and therefore distribution the weight equally over the three axis and hence increasing the traversability performance. The plot (figure \ref{fig:ndr20d}) shows the slip ratios obtained for the case of running backwards with the walking actuators angled in position compared to normal driving forwards. The driving backwards means that the two bogies are in the back and make an equal load on all four wheels of these bogies due to ExoTeR's parallel mechanisms.
+Other experimental tests include running the system backwards and/or fixing the walking motors to the position equal to the angular value of the slope. This is supposed to reduce the load in the back wheels of the rover by shifting the CoM forward and therefore distribute the weight equally over the three axis and hence increase in theory the traversability performance. The plot (figure \ref{fig:ndr20d}) shows the slip ratios obtained for the case of running backwards with the walking actuators angled in position compared to normal driving forwards. The driving backwards means that the two bogies are in the back and make an equal load on all four wheels of these bogies due to ExoTeR's parallel mechanisms.
 These measures do not show any benefit.
 
 
 \begin{figure}[h!]
 	\centering		\includegraphics[width=0.9\textwidth]{ndr20d.JPG}	
-	\caption{Comparison between NormalDriving and reverse driving with gravity aligned legs on a 20$^{\circ}$ Slope}
+	\caption{Comparison between normal driving and reverse driving with gravity aligned legs on a 20$^{\circ}$ Slope}
 	\label{fig:ndr20d}
 \end{figure}
 
@@ -295,7 +291,7 @@ Due to the lack of any designed flexibility in ExoTeR, the floor is prepared wit
 	\caption{Comparison between egressing in normal configuration (top) and 34$^{\circ}$ forward shifted front wheels (bottom) on a 29$^{\circ}$ egress slope with a step at the end}
 	\label{fig:egress29com}
 \end{figure}
-Figure\ref{fig:egress29com} describes the idea of this test. The forward shifting of the front axis at first should increase the stability of the whole system due to a bigger horizontal distance between the contact point on the ground and the CoM. That way the angle at which it tips over is increased. Second, due to the passive bogie, the maximum angle of egress is limited to the angle in which the contact point on the ground falls behind the pivot point of the bogie using their horizontal coordinate. After this point, the two center wheels would lift off and destabilize the system even further. In addition, the deployment actuator has to withstand very high holding torques, both in driving and during the final impact on the ground.
+Figure\ref{fig:egress29com} describes the concept behind this test. The forward shifting of the front axis should increase the stability of the whole system due to a bigger horizontal distance between the contact point on the ground and the CoM. That way the angle at which it tips over is increased. Second, due to the passive bogie, the maximum angle of egress is limited to the angle in which the contact point on the ground falls behind the pivot point of the bogie using their horizontal coordinate. After this point, the two center wheels would lift off and destabilize the system even further. In addition, the deployment actuator has to withstand very high holding torques, both during driving and at the final impact on the ground.
 Figure\ref{fig:egress29com}(bottom) has its front axle shifted by 34$^\circ$. The 34 herein is the optimized angle for the 29$^\circ$ slope plus the 8 cm drop. 
 
 
@@ -329,7 +325,7 @@ Another side observation is, that the wheel actually drops much less than the fu
 
 \section{Conclusions}
 
-The wheel-walking locomotion mode outperformed standard rolling in all the tested scenarios demonstrating better traction in loose soil, increased gradeability performance and improved stability limit during egress sequences. Future rover exploration missions like ExoMars or Sample Fetching Rover could potentially benefit from the increased locomotion capabilities of wheel walking to reduce the chances of getting stuck in loose soil, to enable safe egress operations or to simply allow a faster or more effective navigation by reducing the ground track to straight distance ratio.
+The wheel walking locomotion mode outperformed standard rolling in all the tested scenarios demonstrating better traction in loose soil, increased gradeability performance and improved stability limit during egress sequences. Future rover exploration missions like ExoMars or Sample Fetching Rover could potentially benefit from the increased locomotion capabilities of wheel walking to reduce the chances of getting stuck in loose soil, to enable safe egress operations or to simply allow a faster or more effective navigation by reducing the ground track to straight distance ratio.
 
 \section{Future Work}
 
