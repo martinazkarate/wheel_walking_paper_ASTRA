@@ -128,7 +128,7 @@ The rover system currently includes a 5 DoF anthropomorphic arm and a mast struc
 \section{Wheel Walking Implementation}
 
 Global body commands of motion are commonly performed using a motion model.
-Kinematics motion models have real-time capabilities and are inexpensive in
+Kinematic motion models have real-time capabilities and are inexpensive in
 comparison with sophisticated wheel-dynamic simulation techniques.  The
 WW evaluation presented in this paper uses a method which is able to
 \textit{optimally}\footnotemark[1] combine the motion induced at each contact
@@ -140,36 +140,49 @@ transformation approach~\cite{Tarokh2005} to accurately model 6-DoF kinematics.
 It derives from the work in~\cite{Hidalgo-Carrio2014} to invert the Jacobian
 formula from the odometry kinematics.
 
-The model requires a minimum of two coordinate frames per kinematic chain: a
+The model requires a minimum of two coordinate frames per kinematic chain (or 
+``leg'') $i$: a
 robot body frame ($B$) attached to the desired rover center and a contact frame
-($C_{il}$) defined as a single point of contact between the robot and the
-ground. Those coordinate frames are related to each other by means of the
-Jacobian matrix in the velocity domain. The matrix maps Cartesian to joint
-velocities and relates the rover pose rates to joints and sensed rate
-quantities as:
+($C_{i}$) defined as a single point of contact between the robot and the
+ground. The transformation between the two frames can be acquired using 
+intermediate frames attached to the joints of the system and applying the 
+Denavit-Hartenberg convention to formulate the transformation matrices.
 
+In the velocity domain, the coordinate frames are related to each other by 
+means of a Jacobian matrix (see~\cite{Tarokh2005} on how to derive this from 
+the transformation matrix). The matrix maps Cartesian to joint
+velocities and relates the rover pose rates to joint and contact rates as:
 \begin{equation}
-    \left[\dot{x}_{B} ~ \dot{y}_{B} ~ \dot{z}_{B} ~ \dot{\phi}_{B}
-    ~ \dot{\theta}_{B} ~ \dot{\psi}_{B} ~ \right]^T = J_{il}
-    \left[\boldsymbol{\dot{q}} ~ \boldsymbol{\dot{\varepsilon}}_{il} \right]^T
-    \label{eq:wheeljacobian}
+	\left[\dot{x}_{B} ~ \dot{y}_{B} ~ \dot{z}_{B} ~ \dot{\phi}_{B}
+	~ \dot{\theta}_{B} ~ \dot{\psi}_{B} ~ \right]^T = J_{i}
+	\left[\boldsymbol{\dot{q}} ~ \boldsymbol{\dot{\varepsilon}}_{i} \right]^T
+	\label{eq:wheeljacobian}
 \end{equation}
+where $\boldsymbol{\dot{q}}$ are the desired joint rates to command to the
+actuators and $\boldsymbol{\dot{\varepsilon}_{i}}$ contains contact angle and 
+slip rates for the respective kinematic chain. Each leg Jacobian $J_{i}$ 
+defines the
+contribution of its kinematic chain to the rover body motion. Considering a 
+single contact angle at each wheel and disregarding slip 
+($\boldsymbol{\dot{\varepsilon}_{i}} = [\dot{\delta}_{i}]$), the size of the 
+$J_{i}$
+matrix is $6 \times (n + 1)$ where $n$ corresponds to the DoF of the
+mechanism.
 
-where $\boldsymbol{\dot{q}}$ are the desire joint rates to command to the
-actuators.  Different WW gaits (i.e. motion patterns ~\cite{LucWalkingGaits}) are set by
-dynamically setting constraints in the Jacobian. Each Jacobian defines the
-contribution of each kinematic chain to the body motion allowing the analysis
-of each chain and contact point to the resulting final velocity in the robot
-body.  Considering a single contact angle $\dot{\varepsilon}_{il}$ the $J_{il}$
-matrix size is $6 \times (n + 6)$ where $n$ corresponds to the DoF of the
-mechanism.  The composite rover equations are obtained combining the Jacobian
+The composite rover equations are obtained by combining the Jacobian
 matrices for all kinematic chains into a sparse matrix equation of appropriate
-dimensions. The desired solution is obtained by numerically solving a system of
-equations using Weighted Least-Squares.
+dimensions. After rearranging into unknown (desired) and known (sensed or set) 
+body, joint and contact rates, a solution for the unknown rates vector is 
+obtained by applying the Moore-Penrose pseudoinverse. In the over-determined 
+case, this corresponds to the least-squares solution.
 
+The acquired joint rates can then be commanded to the actuators. Different WW 
+gaits (i.e. motion patterns~\cite{LucWalkingGaits}) are achieved by dynamically 
+setting constraints in the Jacobian (i.e. by defining set joint rates according 
+to the current phase of the WW motion).
 
-\footnotetext[1]{Optimally here refers to the best estimated value from a
-weighted least-squares perspective.}
+\footnotetext[1]{Optimally here refers to the best estimated value from a 
+least-squares perspective.}
 
 \section{Experimental results}
 
