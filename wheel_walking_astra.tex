@@ -43,21 +43,54 @@ Triple-Bogie Rover Locomotion Performances}
 
 \section*{Abstract}
 
-\textbf{Deployment actuators of a triple-bogie rover locomotion platform can be used to perform Wheel-Walking (WW) manoeuvres. How WW could affect the traversing capabilities of rovers is a recurrent debate in the planetary robotics community. The Automation and Robotics Section of ESTEC has initiated a long term project to evaluate the performance of WW manoeuvres in different scenarios. This paper presents the first experimental results on this project, obtained during the test campaign run on November 2014 at the Planetary Robotics Lab (PRL) of ESTEC, and shows the performance analysis made when comparing WW with standard rolling. The PRL rover prototype ExoTeR was used to test three different scenarios: entrapment in loose soil, up-slope traverse and lander egressing. WW locomotion showed increased capabilities in all scenarios and proved its relevance and advantages for planetary exploration missions.}
+\textbf{Deployment actuators of a triple-bogie rover locomotion platform can be
+used to perform Wheel-Walking (WW) manoeuvres. How WW could affect the
+traversing capabilities of rovers is a recurrent debate in the planetary
+robotics community. The Automation and Robotics Section of ESTEC has initiated
+a long term project to evaluate the performance of WW manoeuvres in different
+scenarios. This paper presents the first experimental results on this project,
+obtained during the test campaign run on November 2014 at the Planetary
+Robotics Lab (PRL) of ESTEC, and shows the performance analysis made when
+comparing WW with standard rolling. The PRL rover prototype ExoTeR was used to
+test three different scenarios: entrapment in loose soil, up-slope traverse and
+lander egressing. WW locomotion showed increased capabilities in all scenarios
+and proved its relevance and advantages for planetary exploration missions.}
 
 \section{Introduction}
 
-Planetary rover missions to Mars such as NASA's MER or MSL have shown a clear decrease of the traversing capabilities while rolling across some particular surface areas of Mars. Loose soil and fine dust terrain is the scenario where rovers may experience the most significant loss of their tractive performance. The extreme of these cases was encountered in the Spirit rover which got permanently stuck on May 2009 while traversing the loose sandy area of Troy ~\cite{SpiritTrap}.
+Planetary rover missions to Mars such as NASA's MER or MSL have shown a clear
+decrease of the traversing capabilities while rolling across some particular
+surface areas of Mars. Loose soil and fine dust terrain is the scenario where
+rovers may experience the most significant loss of their tractive performance.
+The extreme of these cases was encountered in the Spirit rover which got
+permanently stuck on May 2009 while traversing the loose sandy area of Troy
+~\cite{SpiritTrap}.
 
 %================================================================
 %Previous studies at JPL ~\cite{ROB:ROB21481} introduce the concept of the Effective Ground Pressure (EGP) as a first order of approximation for an inversely proportional indicator of the traversing capabilities of a rover. In relation to this, ExoMars' estimated EGP (considering an effectively larger wheel due to its flexible properties) is about 2.5 times the one of MER and MSL.
 %================================================================
 
-Following the Lunokhod mission, Russian engineers developed numerous planetary exploration rover concepts where they demostrated major increase in gradeability and obstacle negotiation performances by implementing a "peristaltic" locomotion mode in some or a "wheel-walking" mode in others ~\cite{Ehrenfreund1998}. The triple-bogie rover concept was conceived in the early phase of the ExoMars mission ~\cite{Patel2010} and has become the baseline for the rover's locomotion. Moreover this type of suspension has become widely accepted in the European space robotics community due to good locomotion performances and design simplicity. The location of the deployment actuators of the triple-bogie concept offers the WW mode for free and this is another great benefit of this suspension concept.
+Following the Lunokhod mission, Russian engineers developed numerous planetary
+exploration rover concepts where they demostrated major increase in
+gradeability and obstacle negotiation performances by implementing a
+"peristaltic" locomotion mode in some or a "wheel-walking" mode in others
+~\cite{Ehrenfreund1998}. The triple-bogie rover concept was conceived in the
+early phase of the ExoMars mission ~\cite{Patel2010} and has become the
+baseline for the rover's locomotion. Moreover this type of suspension has
+become widely accepted in the European space robotics community due to good
+locomotion performances and design simplicity. The location of the deployment
+actuators of the triple-bogie concept offers the WW mode for free and this is
+another great benefit of this suspension concept.
 
-Based on the above and given that the triple-bogie concept will probably have a role in future European exploration missions, the Automation \& Robotics Section has initiated a long term internal project to characterize the performances of this suspension concept. A significant part of this project focuses on the WW mode with the aim to fully understand and exploit its potential.
+Based on the above and given that the triple-bogie concept will probably have a
+role in future European exploration missions, the Automation \& Robotics
+Section has initiated a long term internal project to characterize the
+performances of this suspension concept. A significant part of this project
+focuses on the WW mode with the aim to fully understand and exploit its
+potential.
 
-The target platform for the initial test results of this investigation on the WW mode is a triple-bogie laboratory prototype, namely ExoTeR. 
+The target platform for the initial test results of this investigation on the
+WW mode is a triple-bogie laboratory prototype, namely ExoTeR. 
 
 %================================================================
 %Deployment actuators of a triple-bogie rover locomotion platform could in
@@ -127,7 +160,18 @@ in~\cite{ROB:ROB21481}.
 	\label{tab:ExoterDimensionsTable}
 \end{table}
 
-The rover system currently includes a 5 DoF anthropomorphic arm and a mast structure and PTU mechanism with mechanical interfaces to attach a stereo camera and a ToF camera as well. Other sensors include an Inertial Measurement Unit, and incremental encoders and absolute position sensors for the active and passive joints of the locomotion kinematic chain. For the acquisition of the ground truth data inside the lab the Vicon Tracking System is used. For outdoor testing the OBC has integrated a D-GPS receiver with \textit{rtk} corrections. The control architecture of the rover, which comprises the functional layer for now, is implemented using the Rock robotic software framework ~\cite{}. The system is used to perform R\&D activities in the fields of: system integration, locomotion performance, control architecture design and implementation, and sensor data fusion among others. 
+The rover system currently includes a 5 DoF anthropomorphic arm and a mast
+structure and PTU mechanism with mechanical interfaces to attach a stereo
+camera and a ToF camera as well. Other sensors include an Inertial Measurement
+Unit, and incremental encoders and absolute position sensors for the active and
+passive joints of the locomotion kinematic chain. For the acquisition of the
+ground truth data inside the lab the Vicon Tracking System is used. For outdoor
+testing the OBC has integrated a D-GPS receiver with \textit{rtk} corrections.
+The control architecture of the rover, which comprises the functional layer for
+now, is implemented using the Rock robotic software framework ~\cite{}. The
+system is used to perform R\&D activities in the fields of: system integration,
+locomotion performance, control architecture design and implementation, and
+sensor data fusion among others. 
 
 \section{Wheel Walking Implementation}
 
@@ -239,12 +283,13 @@ actuation.
 
 \subsection{Immobilization situation} 
 
-\subsubsection{Objective} This test aims at simulating a trapped situation
-from which the rover should free itself. It is the first WW
-performance test executed with ExoTeR. The baseline of the test is to verify
-the operative readiness of the implemented WW algorithms in a load
-wise representative environment.
-No numerical metric will be measured in these tests. Only for qualitative purposes the time that the rover takes to get unstuck will be observed, if it gets unstuck at all.
+\subsubsection{Objective} This test aims at simulating a trapped situation from
+which the rover should free itself. It is the first WW performance test
+executed with ExoTeR. The baseline of the test is to verify the operative
+readiness of the implemented WW algorithms in a load wise representative
+environment.  No numerical metric will be measured in these tests. Only for
+qualitative purposes the time that the rover takes to get unstuck will be
+observed, if it gets unstuck at all.
 
 \subsubsection{Setup} The test facility is improvised in an outdoor volleyball
 court on a sunny day (see picture \ref{fig:volley}). The sandy part the rover
@@ -271,7 +316,18 @@ as seen in picture \ref{fig:volleyexoterdigg}.
 %Soil BeachVolleyball: Silica sand [dry and moist], grainsize:0.063 - 2 mm ,
 %wet/moist => cohesive soil
 
-The sand gets equally prepared with a raking procedure into approximately 10~\unit{cm} depth before each run.  The rover is commanded \textbf{wireless} and runs on battery. No ground truth system is used in this experiment. The used procedure is divided in two characteristic parts. The first part is to get the rover stuck in a repeatable way. Therefore the rear bogie is tied to the bench with a detachable rope. With the rope on tension, the rover starts driving away from the bench. Once the drawbar pull and the tension have the same value, the rover does not produce any forward motion anymore and keeps digging itself into the ground as shown in Figure \ref{fig:volleyexoterdigg}. This stops once the rear wheels are sunk by half their diameter into the soil. After that, the rope gets untied and part two starts. The system restarts in normal driving (ND) or WW mode and the data starts being recorded. 
+The sand gets equally prepared with a raking procedure into approximately
+10~\unit{cm} depth before each run.  The rover is commanded \textbf{wireless}
+and runs on battery. No ground truth system is used in this experiment. The
+used procedure is divided in two characteristic parts. The first part is to get
+the rover stuck in a repeatable way. Therefore the rear bogie is tied to the
+bench with a detachable rope. With the rope on tension, the rover starts
+driving away from the bench. Once the drawbar pull and the tension have the
+same value, the rover does not produce any forward motion anymore and keeps
+digging itself into the ground as shown in Figure \ref{fig:volleyexoterdigg}.
+This stops once the rear wheels are sunk by half their diameter into the soil.
+After that, the rope gets untied and part two starts. The system restarts in
+normal driving (ND) or WW mode and the data starts being recorded. 
 
 \begin{figure}[h!]
     \centering
@@ -280,8 +336,9 @@ The sand gets equally prepared with a raking procedure into approximately 10~\un
     \label{fig:volleyexoterdigg}
 \end{figure}
 
-\subsubsection{Results} As already mentioned both locomotion modes, i.e ND versus WW, are compared (used WW gait is syde-by-syde or left-right ~\cite{LucWalkingGaits}). Both are commanded at a 2 ~\unit{cm/s}
-body velocity.
+\subsubsection{Results} As already mentioned both locomotion modes, i.e ND
+versus WW, are compared (used WW gait is syde-by-syde or left-right
+~\cite{LucWalkingGaits}). Both are commanded at a 2 ~\unit{cm/s} body velocity.
 
 \begin{figure}[h!]
     \centering	
@@ -318,13 +375,24 @@ more unlikely that it would be able to free itself without WW.
 
 \subsubsection{Objective}
 Areas with high inclination are particularly interesting to test rover
-capabilities for planetary exploration. The objective of the experiments is to test the WW capability on slopes with the aim of evaluating if the maximum gradeability of the system can be increased by means of WW. As metric for these tests the slip-ratio will be accurately measured using the motion tracking system (Vicon) of the Planetary Robotics Lab (PRL). The slip-ratio will be computed as shown in formula \ref{eq:slip}. This unit will be used in the results section for comparison.
+capabilities for planetary exploration. The objective of the experiments is to
+test the WW capability on slopes with the aim of evaluating if the maximum
+gradeability of the system can be increased by means of WW. As metric for these
+tests the slip-ratio will be accurately measured using the motion tracking
+system (Vicon) of the Planetary Robotics Lab (PRL). The slip-ratio will be
+computed as shown in formula \ref{eq:slip}. This unit will be used in the
+results section for comparison.
 
 \begin{equation} slip = 1- \frac{real\, position\, tracked\, by\,
 cameras}{position\, estimated\, by\, wheel\, odometry} \label{eq:slip}
 \end{equation}
 
-The motors consumption, although measured, it is not used as a metric for these tests and therefore not shown in the results section. Therefore, this tests do not aim to measure the efficiency of the locomotion modes in terms of power consumption but rather to check if WW mode could be used in some extreme cases enabling the traverse where the ND would not be able to perform\footnotemark[2].
+The motors consumption, although measured, it is not used as a metric for these
+tests and therefore not shown in the results section. Therefore, this tests do
+not aim to measure the efficiency of the locomotion modes in terms of power
+consumption but rather to check if WW mode could be used in some extreme cases
+enabling the traverse where the ND would not be able to
+perform\footnotemark[2].
 
 \footnotetext[2]{A traverse stint with slip-ratio higher than 90\% is considered not-performing.}
 
@@ -352,7 +420,10 @@ gravel provided my KIBAG Zentrallabor. The gravel has a grain size distribution
 of 16\% 0-4~\unit{mm}, 18\% 4-8~\unit{mm}, 15\% 8-11~\unit{mm}, 21\%
 11-16~\unit{mm} and 30\% 16-22~\unit{mm}.  
 
-The ES3 itself simulates a coarse sandy to gravelly material occurring in scree, polymodal surficial lags and local coarser aeolian accumulations. The coarse scree and aeolian accumulations can occur in terrain with rocky escarpments \cite{michaud2014}.
+The ES3 itself simulates a coarse sandy to gravelly material occurring in
+scree, polymodal surficial lags and local coarser aeolian accumulations. The
+coarse scree and aeolian accumulations can occur in terrain with rocky
+escarpments \cite{michaud2014}.
 
 
 %Soil ES3-OMR with gravel: Full description of this soil: OMR DRY (from Sibelco
@@ -373,7 +444,9 @@ The ES3 itself simulates a coarse sandy to gravelly material occurring in scree,
 %_____________________________________________________________
 
 Prior to the hereafter analysed tests, preliminary runs were executed on a
-17.5$^{\circ}$ slope to roughly define the most performing WW gait (see figure \ref{fig:Exoslope}).  The side-by-side gait performed best in terms of slip and heading stability and was therefore chosen. 
+17.5$^{\circ}$ slope to roughly define the most performing WW gait (see figure
+\ref{fig:Exoslope}).  The side-by-side gait performed best in terms of slip and
+heading stability and was therefore chosen. 
 
 \begin{figure}[h!]
     \centering
@@ -387,8 +460,14 @@ Prior to the hereafter analysed tests, preliminary runs were executed on a
 %tests had been completed. All other tested gaits (AXLE_BY_AXLE and EVEN_ODD or
 %TRIPOD) showed to have worse performance in the preliminary tests, i.e. higher
 %slip ratios. 
-The following subsections show for each of the tested slope angle degrees the resulting slip ratios obtained for ND and WW. All off them show three valid WW tests and three ND tests. These sets are always shown in the same color. The blue lines represent the slip of the three ND tests on a scale from 0 to 1. The red ones do the same for the WW tests. The distance the ND accomplished with respect to 
-time are represented in green. Cyan shows the distance over time for the WW ones. The slip value is calculated continuously throughout the tests within a local time window of 2 seconds.
+The following subsections show for each of the tested slope angle degrees the
+resulting slip ratios obtained for ND and WW. All off them show three valid WW
+tests and three ND tests. These sets are always shown in the same color. The
+blue lines represent the slip of the three ND tests on a scale from 0 to 1. The
+red ones do the same for the WW tests. The distance the ND accomplished with
+respect to time are represented in green. Cyan shows the distance over time for
+the WW ones. The slip value is calculated continuously throughout the tests
+within a local time window of 2 seconds.
 
 \subsubsection*{0$^{\circ}$ Slope Tests}
 In the 0$^\circ$ run (Figure \ref{fig:00d}) the different driving modes have
@@ -398,7 +477,7 @@ such low slip values. Both plot groups show a small peek in the first 10
 seconds in which the rover develops a little sinkage and goes into steady
 state. 
 
-\begin{figure}[h!]
+\begin{figure}[b!]
     \centering
     \includegraphics[width=0.9\textwidth]{00d.jpg}
     \caption{Comparison between wheel walking and normal driving on flat terrain}
@@ -406,7 +485,9 @@ state.
 \end{figure}
 
 \subsubsection*{10$^{\circ}$ Slope Tests}
-The performance difference in the 10$^\circ$ slope already show the benefit of WW compared to ND. The slip value of former is about 50\% less than in the later case. Still, the slip for both is considered low.
+The performance difference in the 10$^\circ$ slope already show the benefit of
+WW compared to ND. The slip value of former is about 50\% less than in the
+later case. Still, the slip for both is considered low.
 
 \begin{figure}[h!]
     \centering
@@ -425,9 +506,15 @@ more visible in terms of traversed distance.
 \end{figure}
 
 \subsubsection*{20$^{\circ}$ Slope Tests}
-Figure \ref{fig:20d} referring to the 20$^\circ$ slope tests shows the biggest performance difference. The travelled distance is roughly double in case of WW, what means that it has half the average slip. The average slip for WW for the three runs was 82.4\% compared to 89.2\% in the ND (averaged in steady state
-from t=75~\unit{s} - t=250~\unit{s}).
-The small periodic ripples in the WW runs are generated by the walking motion. While having slip ratios above approximately 10\%, the rover starts waving around a point in between the two rear axes which is not the rover origin. Therefore the tracking shows ripples with a frequency of about 0.7~\unit{Hz}.
+Figure \ref{fig:20d} referring to the 20$^\circ$ slope tests shows the biggest
+performance difference. The travelled distance is roughly double in case of WW,
+what means that it has half the average slip. The average slip for WW for the
+three runs was 82.4\% compared to 89.2\% in the ND (averaged in steady state
+from t=75~\unit{s} - t=250~\unit{s}).  The small periodic ripples in the WW
+runs are generated by the walking motion. While having slip ratios above
+approximately 10\%, the rover starts waving around a point in between the two
+rear axes which is not the rover origin. Therefore the tracking shows ripples
+with a frequency of about 0.7~\unit{Hz}.
 
 \begin{figure}[h!]
     \centering
@@ -456,7 +543,11 @@ at each run, from 2.5~\unit{cm} to 12.5~\unit{cm} incrementing the step length b
 each test. The results of these series of tests are inconclusive so far, as no
 specific relation can be identified between the step length and the slip ratio.
 
-With the objective of trying to reduce further the slip-ratio, the WW algorithm was modified to include an offset constant rolling speed in all driving motors. This was supposed to increase the traction of "anchoring" wheels during the WW motion. However, this hybrid implementation did not seem to have a positive impact in the slip-ratio.
+With the objective of trying to reduce further the slip-ratio, the WW algorithm
+was modified to include an offset constant rolling speed in all driving motors.
+This was supposed to increase the traction of "anchoring" wheels during the WW
+motion. However, this hybrid implementation did not seem to have a positive
+impact in the slip-ratio.
 
 Other experimental tests include running the system backwards and/or fixing the
 walking motors to the position equal to the angular value of the slope. This is
@@ -476,25 +567,41 @@ parallel mechanisms. None of these measures shows a clear benefit in the slip-ra
     \label{fig:ndr20d}
 \end{figure}
 
-\footnotetext[3]{The step length is here defined as the amount of distance covered by each wheel in a walking sequence.}
+\footnotetext[3]{The step length is here defined as the amount of distance
+covered by each wheel in a walking sequence.}
 
 %================================================================
 %================================================================
 \subsection{Lander Egress Tests} 
 
 \subsubsection{Objective}
-It is evident that having the "walking" degree of freedom in the control-space of the rover offers more than just performing WW gaits. It allows for configuring the rover posture and shifting the CoM to assist different operations. The objective of this test is to experiment on how the "walking" DoF can assist egress operations from a lander, which is one of the most risky phases of a mission. To simulate these egress conditions, the Planetary Robotics Lab has built an adjustable lander mockup that was loosely based on the preliminary design of the ExoMars lander, appropriately scaled-down to fit the size of the ExoTeR rover. 
+It is evident that having the "walking" degree of freedom in the control-space
+of the rover offers more than just performing WW gaits. It allows for
+configuring the rover posture and shifting the CoM to assist different
+operations. The objective of this test is to experiment on how the "walking"
+DoF can assist egress operations from a lander, which is one of the most risky
+phases of a mission. To simulate these egress conditions, the Planetary
+Robotics Lab has built an adjustable lander mockup that was loosely based on
+the preliminary design of the ExoMars lander, appropriately scaled-down to fit
+the size of the ExoTeR rover. 
 
 \subsubsection{Setup}
-The rover egress platform as shown in figures \ref{fig:egress29} \& \ref{fig:egress34} has two egress directions with different ramp lengths and is adjustable in its height. Thereby the egress
-angle can be set. It is also adjustable to the track width of the rover. The
-ramps are covered with a rubber mat to provide sufficient traction. The
-following tests had a step of 8 cm in height at the end of both ramps to simulate
-a worst case landing in a rocky environment.  Due to the lack of any designed
-flexibility in ExoTeR, the floor is prepared with foam covered by carpet to
-absorb part of the impact energy and simulate the behaviour of flexible wheels. It is worth mentioning that the static stability of ExoTeR has been tested and was found to be greater than 40$^\circ$.
+The rover egress platform as shown in figures \ref{fig:egress29} \&
+\ref{fig:egress34} has two egress directions with different ramp lengths and is
+adjustable in its height. Thereby the egress angle can be set. It is also
+adjustable to the track width of the rover. The ramps are covered with a rubber
+mat to provide sufficient traction. The following tests had a step of 8 cm in
+height at the end of both ramps to simulate a worst case landing in a rocky
+environment.  Due to the lack of any designed flexibility in ExoTeR, the floor
+is prepared with foam covered by carpet to absorb part of the impact energy and
+simulate the behaviour of flexible wheels. It is worth mentioning that the
+static stability of ExoTeR has been tested and was found to be greater than
+40$^\circ$.
 
-At the beginning of the test procedure, the rover is steady on the egress platform and is commanded to drive down with a constant body velocity of 1~\unit{cm/s}. A emergency safety rope is attached to its back and is hand held without tension. 
+At the beginning of the test procedure, the rover is steady on the egress
+platform and is commanded to drive down with a constant body velocity of
+1~\unit{cm/s}. A emergency safety rope is attached to its back and is hand held
+without tension. 
 
 \begin{figure}[h]
     \centering
@@ -560,16 +667,24 @@ diameter, reducing therefore the "free falling" distance.
 \section{Conclusions}
 The wheel-walking locomotion mode outperformed standard rolling in all the
 tested scenarios demonstrating better traction in loose soil, increased
-gradeability performance and improved dynamic stability limit during egress sequences. The experiments run and the results shown in this paper demonstrate the advantages of using wheel-walking manoeuvres in low-tractive terrains and egress scenarios and quantify the improvement that can be achieved in gradeability.
-Future rover exploration missions, specially in the case of systems with high EGP, could potentially benefit from the increased locomotion capabilities of wheel-walking to mitigate the risk of getting stuck in loose soil, to enable safe egress operations or to simply allow a faster or more efficient navigation by reducing the ground track to straight distance ratio.
+gradeability performance and improved dynamic stability limit during egress
+sequences. The experiments run and the results shown in this paper demonstrate
+the advantages of using wheel-walking manoeuvres in low-tractive terrains and
+egress scenarios and quantify the improvement that can be achieved in
+gradeability.  Future rover exploration missions, specially in the case of
+systems with high EGP, could potentially benefit from the increased locomotion
+capabilities of wheel-walking to mitigate the risk of getting stuck in loose
+soil, to enable safe egress operations or to simply allow a faster or more
+efficient navigation by reducing the ground track to straight distance ratio.
 
 \section{Future Work}
-Following the results of these first experiments, the Automation \& Robotics Section has decided to
+Following the results of these first experiments, the Authors have decided to
 continue this research path and has planned further tests to get more
-experimental data and increase the confidence on the performance of wheel-walking.  Future tests will focus on gradeability analysis to better assess the
-performance of different wheel-walking gaits in several types of soil.  The
-next testing campaign is planned for March 2015 in the Robotics Mechanics
-Centre (RMC) of DLR Oberpfaffenhofen.
+experimental data and increase the confidence on the performance of
+wheel-walking.  Future tests will focus on gradeability analysis to better
+assess the performance of different wheel-walking gaits in several types of
+soil.  The next testing campaign is planned for March 2015 in the Robotics
+Mechanics Centre (RMC) of DLR Oberpfaffenhofen.
 
 
 \vspace{-3 mm}
