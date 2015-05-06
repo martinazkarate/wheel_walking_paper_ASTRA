@@ -146,33 +146,19 @@ It derives from the work in~\cite{Hidalgo-Carrio2014} to invert the Jacobian
 formula from the odometry kinematics.
 
 The model requires a minimum of two coordinate frames per kinematic chain (or 
-``leg'') $i$: a
-robot body frame ($B$) attached to the desired rover center and a contact frame
-($C_{i}$) defined as a single point of contact between the robot and the
-ground. The transformation between the two frames can be acquired using 
+``leg'') $i$: a robot body frame ($B$) attached to the desired rover center and 
+a contact frame ($C_{i}$) defined as a single point of contact between the 
+robot and the ground, as illustrated in Figure~\ref{fig:CoosWW}. The 
+transformation between the two frames can be acquired using 
 intermediate frames attached to the joints of the system and applying the 
 Denavit-Hartenberg convention to formulate the transformation matrices.
 
-In the velocity domain, the coordinate frames are related to each other by 
-means of a Jacobian matrix (see~\cite{Tarokh2005} on how to derive this from 
-the transformation matrix). The matrix maps Cartesian to joint
-velocities and relates the rover pose rates to joint and contact rates as:
-\begin{equation}
-	\left[\dot{x}_{B} ~ \dot{y}_{B} ~ \dot{z}_{B} ~ \dot{\phi}_{B}
-	~ \dot{\theta}_{B} ~ \dot{\psi}_{B} ~ \right]^T = J_{i}
-	\left[\boldsymbol{\dot{q}} ~ \boldsymbol{\dot{\varepsilon}}_{i} \right]^T
-	\label{eq:wheeljacobian}
-\end{equation}
-where $\boldsymbol{\dot{q}}$ are the desired joint rates to command to the
-actuators and $\boldsymbol{\dot{\varepsilon}_{i}}$ contains contact angle and 
-slip rates for the respective kinematic chain. Each leg Jacobian $J_{i}$ 
-defines the
-contribution of its kinematic chain to the rover body motion. Considering a 
-single contact angle at each wheel and disregarding slip 
-($\boldsymbol{\dot{\varepsilon}_{i}} = [\dot{\delta}_{i}]$), the size of the 
-$J_{i}$
-matrix is $6 \times (n + 1)$ where $n$ corresponds to the DoF of the
-mechanism.
+\begin{figure}[b!]
+	\centering
+	\includegraphics[width=0.95\textwidth]{coordsystems.png}
+	\caption{Coordinate systems illustration}
+	\label{fig:CoosWW}
+\end{figure}
 
 \begin{table*}[t]
 	\begin{tabular}{m{1.9cm}>{\centering\arraybackslash}m{0.9cm}>{\centering\arraybackslash}m{0.9cm}m{5.4cm}m{6cm}}
@@ -199,6 +185,27 @@ mechanism.
 	\label{tab:GaitTable}
 \end{table*}
 
+In the velocity domain, the coordinate frames are related to each other by 
+means of a Jacobian matrix (see~\cite{Tarokh2005} on how to derive this from 
+the transformation matrix). The matrix maps Cartesian to joint
+velocities and relates the rover pose rates to joint and contact rates as:
+\begin{equation}
+	\left[\dot{x}_{B} ~ \dot{y}_{B} ~ \dot{z}_{B} ~ \dot{\phi}_{B}
+	~ \dot{\theta}_{B} ~ \dot{\psi}_{B} ~ \right]^T = J_{i}
+	\left[\boldsymbol{\dot{q}} ~ \boldsymbol{\dot{\varepsilon}}_{i} \right]^T
+	\label{eq:wheeljacobian}
+\end{equation}
+where $\boldsymbol{\dot{q}}$ are the desired joint rates to command to the
+actuators and $\boldsymbol{\dot{\varepsilon}_{i}}$ contains contact angle and 
+slip rates for the respective kinematic chain. Each leg Jacobian $J_{i}$ 
+defines the
+contribution of its kinematic chain to the rover body motion. Considering a 
+single contact angle at each wheel and disregarding slip 
+($\boldsymbol{\dot{\varepsilon}_{i}} = [\dot{\delta}_{i}]$), the size of the 
+$J_{i}$
+matrix is $6 \times (n + 1)$ where $n$ corresponds to the DoF of the
+mechanism.
+
 The composite rover equations are obtained by combining the Jacobian
 matrices for all kinematic chains into a sparse matrix equation of appropriate
 dimensions. After rearranging into unknown (desired) and known (sensed or set) 
@@ -213,13 +220,12 @@ motion patterns~\cite{LucWalkingGaits}) are achieved by dynamically setting
 constraints in the Jacobian (i.e. by defining set joint rates according to the 
 current phase of the WW motion). The implemented gaits are summarized in Table 
 ~\ref{tab:GaitTable}. For the ``active'' wheels in a phase of a gait, a rolling 
-rate faster then 
-the body speed is set as a constraint. The rolling rate of the ``inactive'' 
-wheels is set to zero to keep a constant contact point on the ground. The 
-switch to the next phase is induced once the currently active driving wheels 
-reach the specified step length. The step length also indicates the amount of 
-(presumed) translation of the rover in body-$x$-direction during one WW gait 
-sequence.
+rate faster than the body speed is set as a constraint. The rolling rate of the 
+``inactive'' wheels is set to zero to keep a constant contact point on the 
+ground. The switch to the next phase is induced once the currently active 
+driving wheels reach the specified step length. The step length also indicates 
+the amount of (presumed) translation of the rover in body-$x$-direction during 
+one WW gait sequence.
 
 \footnotetext[1]{Optimally here refers to the best estimated value from a 
 least-squares perspective.}
