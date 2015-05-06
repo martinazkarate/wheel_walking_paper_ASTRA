@@ -12,6 +12,7 @@
 \usepackage{units}
 \usepackage{floatrow}
 \usepackage{float}
+\usepackage{array}
 
 \graphicspath{{img/}}
 \restylefloat{table}
@@ -169,17 +170,52 @@ $J_{i}$
 matrix is $6 \times (n + 1)$ where $n$ corresponds to the DoF of the
 mechanism.
 
+\begin{table*}[t]
+	\begin{tabular}{m{1.9cm}>{\centering\arraybackslash}m{0.9cm}>{\centering\arraybackslash}m{0.9cm}m{5.4cm}m{6cm}}
+		\hline
+		Gait name & \# of active wheels & \# of phases & Active wheel sequence 
+		& Sequence illustration (green = active wheels) \\
+		\hline
+		Single wheel & 1 & 6 & (1) $\rightarrow$ (2) $\rightarrow$ (3) 
+		$\rightarrow$ (4) $\rightarrow$ (5) $\rightarrow$ (6) & 
+		\parbox[c]{1em}{\includegraphics[height=21px]{img/single_wheel.png}}
+		\\  
+		Axle by axle & 2 & 3 & (1,2) $\rightarrow$ (3,4) $\rightarrow$ (5,6) & 
+		\parbox[c]{1em}{\includegraphics[height=21px]{img/axle_by_axle.png}}
+		\\
+		Side by side & 3 & 2 & (1,3,5) $\rightarrow$ (2,4,6) & 
+		\parbox[c]{1em}{\includegraphics[height=21px]{img/side_by_side.png}}
+		\\
+		Tripod & 3 & 2 & (1,4,5) $\rightarrow$ (2,3,6) & 
+		\parbox[c]{1em}{\includegraphics[height=21px]{img/tripod.png}}
+		\\
+		\hline
+	\end{tabular}
+	\caption{Implemented wheel walking gaits}
+	\label{tab:GaitTable}
+\end{table*}
+
 The composite rover equations are obtained by combining the Jacobian
 matrices for all kinematic chains into a sparse matrix equation of appropriate
 dimensions. After rearranging into unknown (desired) and known (sensed or set) 
 body, joint and contact rates, a solution for the unknown rates vector is 
 obtained by applying the Moore-Penrose pseudoinverse. In the over-determined 
-case, this corresponds to the least-squares solution.
+case, this corresponds to the least-squares solution. The acquired joint rates 
+can then be commanded to the actuators.
 
-The acquired joint rates can then be commanded to the actuators. Different WW 
-gaits (i.e. motion patterns~\cite{LucWalkingGaits}) are achieved by dynamically 
-setting constraints in the Jacobian (i.e. by defining set joint rates according 
-to the current phase of the WW motion).
+Internally, the algorithm is running at a fixed rate of 12.5 Hz, calculating 
+the unknown joint velocities at every time step. Different WW gaits (i.e. 
+motion patterns~\cite{LucWalkingGaits}) are achieved by dynamically setting 
+constraints in the Jacobian (i.e. by defining set joint rates according to the 
+current phase of the WW motion). The implemented gaits are summarized in Table 
+~\ref{tab:GaitTable}. For the ``active'' wheels in a phase of a gait, a rolling 
+rate faster then 
+the body speed is set as a constraint. The rolling rate of the ``inactive'' 
+wheels is set to zero to keep a constant contact point on the ground. The 
+switch to the next phase is induced once the currently active driving wheels 
+reach the specified step length. The step length also indicates the amount of 
+(presumed) translation of the rover in body-$x$-direction during one WW gait 
+sequence.
 
 \footnotetext[1]{Optimally here refers to the best estimated value from a 
 least-squares perspective.}
