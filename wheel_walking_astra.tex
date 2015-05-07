@@ -70,18 +70,7 @@ permanently stuck on May 2009 while traversing the loose sandy area of Troy
 %================================================================
 %Previous studies at JPL ~\cite{ROB:ROB21481} introduce the concept of the Effective Ground Pressure (EGP) as a first order of approximation for an inversely proportional indicator of the traversing capabilities of a rover. In relation to this, ExoMars' estimated EGP (considering an effectively larger wheel due to its flexible properties) is about 2.5 times the one of MER and MSL.
 %================================================================
-
-Following the Lunokhod mission, Russian engineers developed numerous planetary
-exploration rover concepts where they demostrated major increase in
-gradeability and obstacle negotiation performances by implementing a
-"peristaltic" locomotion mode in some or a "wheel-walking" mode in others
-~\cite{Ehrenfreund1998}. The triple-bogie rover concept was conceived in the
-early phase of the ExoMars mission ~\cite{Patel2010} and has become the
-baseline for the rover's locomotion. Moreover this type of suspension has
-become widely accepted in the European space robotics community due to good
-locomotion performances and design simplicity. The location of the deployment
-actuators of the triple-bogie concept offers the WW mode for free and this is
-another great benefit of this suspension concept.
+Following the Lunokhod mission, Russian engineers developed numerous planetary exploration rover concepts where they demostrated major increase in gradeability and obstacle negotiation performances by implementing a ``peristaltic" locomotion mode in some or a ``wheel-walking" mode in others ~\cite{Ehrenfreund1998}. The triple-bogie rover concept was conceived in the early phase of the ExoMars mission ~\cite{Patel2010} and has become the baseline for the rover's locomotion. Moreover this type of suspension has become widely accepted in the European space robotics community due to good locomotion performances and design simplicity. The location of the deployment actuators of the triple-bogie concept offers the WW mode for free and this is another great benefit of this suspension concept.
 
 Based on the above and given that the triple-bogie concept will probably have a
 role in future European exploration missions, the Automation \& Robotics
@@ -138,7 +127,7 @@ also be seen.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.9\textwidth]{ExoterRover2013.jpg}
+    \includegraphics[width=0.95\textwidth]{ExoterRover2013.jpg}
     \caption{ExoTeR Rover, 2013}
     \label{fig:ExoterRover2013}
 \end{figure}
@@ -183,96 +172,24 @@ Kinematic motion models have real-time capabilities and are inexpensive in
 comparison with sophisticated wheel-dynamic simulation techniques.  The
 WW evaluation presented in this paper uses a method which is able to
 \textit{optimally}\footnotemark[2] combine the motion induced at each contact
-point. The primary contribution of the model is fusing, in a unified framework,
-desired body velocities to joint motion commands as a whole.  The
-implementation of a complete motion model behaves more consistent and stable
-than previous WW techniques. The model makes use of the
-transformation approach~\cite{Tarokh2005} which is in turn based 
-on~\cite{MuirNeumann1987} to accurately model 6-DoF kinematics.
-It derives from the work in~\cite{Hidalgo-Carrio2014} to invert the Jacobian
-formula from the odometry kinematics.
+point by fusing, in a unified framework, desired body velocities to joint 
+motion commands as a whole.  The implementation of a complete motion model 
+behaves more consistent and stable than previous WW techniques. The model makes 
+use of the transformation approach~\cite{Tarokh2005} which is in turn based 
+on~\cite{MuirNeumann1987} to accurately model 6-DoF kinematics. It derives from 
+the work in~\cite{Hidalgo-Carrio2014} to invert the Jacobian formula from the 
+odometry kinematics.
 
-The model requires a minimum of two coordinate frames per kinematic chain (or 
-``leg'') $i$: a robot body frame ($B$) attached to the desired rover center and 
-a contact frame ($C_{i}$) defined as a single point of contact between the 
-robot and the ground, as illustrated in Figure~\ref{fig:CoosWW}. The 
-transformation between the two frames can be acquired using 
-intermediate frames attached to the joints of the system and applying the 
-Denavit-Hartenberg convention to formulate the transformation matrices.
-
-\begin{figure}[b!]
-	\centering
-	\includegraphics[width=0.95\textwidth]{coordsystems.png}
-	\caption{Coordinate systems illustration}
-	\label{fig:CoosWW}
-\end{figure}
-
-\begin{table*}[t]
-	\begin{tabular}{m{1.9cm}>{\centering\arraybackslash}m{0.9cm}>{\centering\arraybackslash}m{0.9cm}m{5.4cm}m{6cm}}
-		\hline
-		Gait name & \# of active wheels & \# of phases & Active wheel sequence 
-		& Sequence illustration (green = active wheels) \\
-		\hline
-		Single wheel & 1 & 6 & (1) $\rightarrow$ (2) $\rightarrow$ (3) 
-		$\rightarrow$ (4) $\rightarrow$ (5) $\rightarrow$ (6) & 
-		\parbox[c]{1em}{\includegraphics[height=21px]{img/single_wheel.png}}
-		\\  
-		Axle by axle & 2 & 3 & (1,2) $\rightarrow$ (3,4) $\rightarrow$ (5,6) & 
-		\parbox[c]{1em}{\includegraphics[height=21px]{img/axle_by_axle.png}}
-		\\
-		Side by side & 3 & 2 & (1,3,5) $\rightarrow$ (2,4,6) & 
-		\parbox[c]{1em}{\includegraphics[height=21px]{img/side_by_side.png}}
-		\\
-		Tripod & 3 & 2 & (1,4,5) $\rightarrow$ (2,3,6) & 
-		\parbox[c]{1em}{\includegraphics[height=21px]{img/tripod.png}}
-		\\
-		\hline
-	\end{tabular}
-	\caption{Implemented wheel-walking gaits}
-	\label{tab:GaitTable}
-\end{table*}
-
-In the velocity domain, the coordinate frames are related to each other by 
-means of a Jacobian matrix (see~\cite{Tarokh2005} on how to derive this from 
-the transformation matrix). The matrix maps Cartesian to joint
-velocities and relates the rover pose rates to joint and contact rates as:
-\begin{equation}
-	\left[\dot{x}_{B} ~ \dot{y}_{B} ~ \dot{z}_{B} ~ \dot{\phi}_{B}
-	~ \dot{\theta}_{B} ~ \dot{\psi}_{B} ~ \right]^T = J_{i}
-	\left[\boldsymbol{\dot{q}} ~ \boldsymbol{\dot{\varepsilon}}_{i} \right]^T
-	\label{eq:wheeljacobian}
-\end{equation}
-where $\boldsymbol{\dot{q}}$ are the desired joint rates to command to the
-actuators and $\boldsymbol{\dot{\varepsilon}_{i}}$ contains contact angle and 
-slip rates for the respective kinematic chain. Each leg Jacobian $J_{i}$ 
-defines the
-contribution of its kinematic chain to the rover body motion. Considering a 
-single contact angle at each wheel and disregarding slip 
-($\boldsymbol{\dot{\varepsilon}_{i}} = [\dot{\delta}_{i}]$), the size of the 
-$J_{i}$
-matrix is $6 \times (n + 1)$ where $n$ corresponds to the DoF of the
-mechanism.
-
-The composite rover equations are obtained by combining the Jacobian
-matrices for all kinematic chains into a sparse matrix equation of appropriate
-dimensions. After rearranging into unknown (desired) and known (sensed or set) 
-body, joint and contact rates, a solution for the unknown rates vector is 
-obtained by applying the Moore-Penrose pseudoinverse. In the over-determined 
-case, this corresponds to the least-squares solution. The acquired joint rates 
-can then be commanded to the actuators.
-
-Internally, the algorithm is running at a fixed rate of 12.5 Hz, calculating 
-the unknown joint velocities at every time step. Different WW gaits (i.e. 
+The key element of the approach is the formulation of one Jacobian matrix per 
+kinematic chain (or ``leg'' of the rover) relating rover pose rates in 
+Cartesian coordinates to joint rates of the locomotion system. The full 
+velocity kinematics are obtained by combining the Jacobian 
+matrices for all kinematic chains into one sparse matrix equation which is 
+solved for the unknown joint rates using a least-squares approach. The 
+acquired rates can then be commanded to the actuators. Different WW gaits (i.e. 
 motion patterns~\cite{LucWalkingGaits}) are achieved by dynamically setting 
 constraints in the Jacobian (i.e. by defining set joint rates according to the 
-current phase of the WW motion). The implemented gaits are summarized in Table 
-~\ref{tab:GaitTable}. For the ``active'' wheels in a phase of a gait, a rolling 
-rate faster than the body speed is set as a constraint. The rolling rate of the 
-``inactive'' wheels is set to zero to keep a constant contact point on the 
-ground. The switch to the next phase is induced once the currently active 
-driving wheels reach the specified step length. The step length also indicates 
-the amount of (presumed) translation of the rover in body-$x$-direction during 
-one WW gait sequence.
+current phase of the WW motion).
 
 \footnotetext[2]{Optimally here refers to the best estimated value from a 
 least-squares perspective.}
@@ -303,7 +220,7 @@ as seen in figure \ref{fig:volleyexoterdigg}.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.9\textwidth]{volley.jpg}
+    \includegraphics[width=0.95\textwidth]{volley.jpg}
     \caption{Setup on outdoor beach volleyball court}
     \label{fig:volley}
 \end{figure}
@@ -334,7 +251,7 @@ normal driving (ND) or WW mode and the data starts being recorded.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.9\textwidth]{volleyexoterdigg.jpg}
+    \includegraphics[width=0.95\textwidth]{volleyexoterdigg.jpg}
     \caption{ExoTeR bogged down by half a wheel diameter}
     \label{fig:volleyexoterdigg}
 \end{figure}
@@ -346,12 +263,12 @@ versus WW, are compared. The used WW gait is syde-by-syde or left-right
 \begin{figure}[h!]
     \centering	
     \subfigure{
-        \includegraphics[width=0.45\textwidth]{volleystuck00.png}
-        \includegraphics[width=0.45\textwidth]{volleystuck15.png}
+        \includegraphics[width=0.475\textwidth]{volleystuck00.png}
+        \includegraphics[width=0.475\textwidth]{volleystuck15.png}
     }	
     \subfigure{
-        \includegraphics[width=0.45\textwidth]{volleystuck30.png}
-        \includegraphics[width=0.45\textwidth]{volleystuck45.png} }
+        \includegraphics[width=0.475\textwidth]{volleystuck30.png}
+        \includegraphics[width=0.475\textwidth]{volleystuck45.png} }
         \caption{top-left:t=0s,  top-right:t=15s, bottom-left:t=30s,
         bottom-right:t=45s; each picture has WW on the left half and
         ND on its right half }
@@ -427,8 +344,8 @@ In table \ref{tab:SoilCharacteristics} the characteristics of the soil used for 
 
 \begin{table}[h]
 	\begin{tabular}{ll}
-\textbf{Parameter}                                                & \textbf{Value}                                                                                                        \\ \hline
-Soil Simulant                                                     & ES3 with gravel                                                                                                       \\ \hline
+Soil Simulant                                                     & ES3 with gravel                                                                                                       
+\\ \hline
 Constitution                                                      & \begin{tabular}[c]{@{}l@{}}80\% ES3-OMR from Sibelco\\ 20\% gravel from KIBAG\end{tabular}                            \\ \hline
 \begin{tabular}[c]{@{}l@{}}KIBAG gravel\\ grain size\end{tabular} & \begin{tabular}[c]{@{}l@{}}16\% 0-4 mm, 18\% 4-8 mm, \\ 15\% 8-11 mm, 21\% 11-16 mm \\ and 30\% 16-22 mm\end{tabular} \\ 
 \end{tabular}
@@ -457,16 +374,16 @@ Prior to the hereafter analysed tests, preliminary runs are executed on a
 \ref{fig:Exoslope}).  The side-by-side gait performs best in terms of slip and
 heading stability and is therefore chosen. 
 
-\begin{figure}[b!]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{trailersetup.jpg}
+    \includegraphics[width=0.95\textwidth]{trailersetup.jpg}
     \caption{Gradeability tests setup in ESTEC's Planetary Robotics Lab}
     \label{fig:trailer}
 \end{figure}
 
-\begin{figure}[t!]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{Exoslope.jpg}
+    \includegraphics[width=0.95\textwidth]{Exoslope.jpg}
     \caption{ExoTeR rover on 17.5$^{\circ}$ slope in the trailer}
     \label{fig:Exoslope}
 \end{figure}
@@ -536,8 +453,8 @@ what means that it has half the average slip.
 Table \ref{tab:SlopeSummaryTable} summarises the results obtained in terms of average slip-ratio at each slope angle for ND and WW.
 
 \begin{table}[h]
-	\begin{tabular}{lll}
-	Incl.             & Avg slip-ratio ND & Avg slip-ratio WW \\
+	\begin{tabular}{rll}
+	\textbf{Incl.}             & \textbf{Avg slip ND} & \textbf{Avg slip WW} \\
 	0$^{\circ}$       & 5.0\%             & 1.0\%             \\
 	10$^{\circ}$      & 33.6\%            & 20.7\%            \\
 	15$^{\circ}$      & 68.8\%            & 55.4\%            \\
@@ -547,7 +464,7 @@ Table \ref{tab:SlopeSummaryTable} summarises the results obtained in terms of av
 	\label{tab:SlopeSummaryTable}
 \end{table}
 
-Note that due to the formula used to calculate the slip-ratio (equation \ref{eq:slip}) a "small" difference in slip-ratio can be traduced in a big difference in the real traversed distance. In the case of the 20$^{\circ}$ slope tests, where the average slip for the three runs for WW is 82.2\% compared to 89.4\% in the ND (averaged in steady state from t=75~\unit{s} - t=250~\unit{s}), the real traversed distance is almost the double in the case of WW. Basically, while WW actually moved the 17.8\% of the wheel odometry ND only moved 10.6\%. It is important to note that at 20$^{\circ}$ slope ND is in the limit of its capabilities, as a slip-ratio higher than 90\% is considered non-performing. Therefore, we could conclude that WW can add to the rover system an increased gradeability, pushing the limit of traversable slope inclination to a higher level. Due to the limits of the testbed facility no further tests can be run at higher slope angles at this point.
+Note that due to the formula used to calculate the slip-ratio (equation \ref{eq:slip}) a ``small" difference in slip-ratio can be traduced in a big difference in the real traversed distance. In the case of the 20$^{\circ}$ slope tests, where the average slip for the three runs for WW is 82.2\% compared to 89.4\% in the ND (averaged in steady state from t=75~\unit{s} - t=250~\unit{s}), the real traversed distance is almost the double in the case of WW. Basically, while WW actually moved the 17.8\% of the wheel odometry ND only moved 10.6\%. It is important to note that at 20$^{\circ}$ slope ND is in the limit of its capabilities, as a slip-ratio higher than 90\% is considered non-performing. Therefore, we could conclude that WW can add to the rover system an increased gradeability, pushing the limit of traversable slope inclination to a higher level. Due to the limits of the testbed facility no further tests can be run at higher slope angles at this point.
 
 On the other hand, the small periodic ripples in the WW
 runs are generated by the walking motion. While having slip ratios above
@@ -564,7 +481,7 @@ specific relation can be identified between the step length and the slip ratio.
 
 With the objective of trying to reduce further the slip-ratio, the WW algorithm
 is modified to include an offset constant rolling speed in all driving motors.
-This is supposed to increase the traction of "anchoring" wheels during the WW
+This is supposed to increase the traction of ``anchoring" wheels during the WW
 motion. However, this hybrid implementation does not seem to have a positive
 impact in the slip-ratio.
 
@@ -594,10 +511,10 @@ covered by each wheel in a walking sequence.}
 \subsection{Lander Egress} 
 
 \subsubsection{Objective}
-It is evident that having the "walking" degree of freedom in the control-space
+It is evident that having the ``walking" degree of freedom in the control-space
 of the rover offers more than just performing WW gaits. It allows for
 configuring the rover posture and shifting the CoM to assist different
-operations. The objective of this test is to experiment on how the "walking"
+operations. The objective of this test is to experiment on how the ``walking"
 DoF can assist egress operations from a lander, which is one of the most risky
 phases of a mission. To simulate these egress conditions, the Planetary
 Robotics Lab has built an adjustable lander mockup that is loosely based on
@@ -677,7 +594,7 @@ for the current setup.
 Another side observation is that the wheel actually drops much less than the
 full 8~\unit{cm} of the step height. The traction of the rear four wheels is big enough to
 let the front wheel pair roll down smoothly until roughly half of the wheel
-diameter, reducing therefore the "free falling" distance.
+diameter, reducing therefore the ``free falling" distance.
 
 %================================================================
 %================================================================
