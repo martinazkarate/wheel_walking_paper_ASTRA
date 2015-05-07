@@ -180,96 +180,24 @@ Kinematic motion models have real-time capabilities and are inexpensive in
 comparison with sophisticated wheel-dynamic simulation techniques.  The
 WW evaluation presented in this paper uses a method which is able to
 \textit{optimally}\footnotemark[1] combine the motion induced at each contact
-point. The primary contribution of the model is fusing, in a unified framework,
-desired body velocities to joint motion commands as a whole.  The
-implementation of a complete motion model behaves more consistent and stable
-than previous WW techniques. The model makes use of the
-transformation approach~\cite{Tarokh2005} which is in turn based 
-on~\cite{MuirNeumann1987} to accurately model 6-DoF kinematics.
-It derives from the work in~\cite{Hidalgo-Carrio2014} to invert the Jacobian
-formula from the odometry kinematics.
+point by fusing, in a unified framework, desired body velocities to joint 
+motion commands as a whole.  The implementation of a complete motion model 
+behaves more consistent and stable than previous WW techniques. The model makes 
+use of the transformation approach~\cite{Tarokh2005} which is in turn based 
+on~\cite{MuirNeumann1987} to accurately model 6-DoF kinematics. It derives from 
+the work in~\cite{Hidalgo-Carrio2014} to invert the Jacobian formula from the 
+odometry kinematics.
 
-The model requires a minimum of two coordinate frames per kinematic chain (or 
-``leg'') $i$: a robot body frame ($B$) attached to the desired rover center and 
-a contact frame ($C_{i}$) defined as a single point of contact between the 
-robot and the ground, as illustrated in Figure~\ref{fig:CoosWW}. The 
-transformation between the two frames can be acquired using 
-intermediate frames attached to the joints of the system and applying the 
-Denavit-Hartenberg convention to formulate the transformation matrices.
-
-\begin{figure}[b!]
-	\centering
-	\includegraphics[width=0.95\textwidth]{coordsystems.png}
-	\caption{Coordinate systems illustration}
-	\label{fig:CoosWW}
-\end{figure}
-
-\begin{table*}[t]
-	\begin{tabular}{m{1.9cm}>{\centering\arraybackslash}m{0.9cm}>{\centering\arraybackslash}m{0.9cm}m{5.4cm}m{6cm}}
-		\hline
-		Gait name & \# of active wheels & \# of phases & Active wheel sequence 
-		& Sequence illustration (green = active wheels) \\
-		\hline
-		Single wheel & 1 & 6 & (1) $\rightarrow$ (2) $\rightarrow$ (3) 
-		$\rightarrow$ (4) $\rightarrow$ (5) $\rightarrow$ (6) & 
-		\parbox[c]{1em}{\includegraphics[height=21px]{img/single_wheel.png}}
-		\\  
-		Axle by axle & 2 & 3 & (1,2) $\rightarrow$ (3,4) $\rightarrow$ (5,6) & 
-		\parbox[c]{1em}{\includegraphics[height=21px]{img/axle_by_axle.png}}
-		\\
-		Side by side & 3 & 2 & (1,3,5) $\rightarrow$ (2,4,6) & 
-		\parbox[c]{1em}{\includegraphics[height=21px]{img/side_by_side.png}}
-		\\
-		Tripod & 3 & 2 & (1,4,5) $\rightarrow$ (2,3,6) & 
-		\parbox[c]{1em}{\includegraphics[height=21px]{img/tripod.png}}
-		\\
-		\hline
-	\end{tabular}
-	\caption{Implemented wheel-walking gaits}
-	\label{tab:GaitTable}
-\end{table*}
-
-In the velocity domain, the coordinate frames are related to each other by 
-means of a Jacobian matrix (see~\cite{Tarokh2005} on how to derive this from 
-the transformation matrix). The matrix maps Cartesian to joint
-velocities and relates the rover pose rates to joint and contact rates as:
-\begin{equation}
-	\left[\dot{x}_{B} ~ \dot{y}_{B} ~ \dot{z}_{B} ~ \dot{\phi}_{B}
-	~ \dot{\theta}_{B} ~ \dot{\psi}_{B} ~ \right]^T = J_{i}
-	\left[\boldsymbol{\dot{q}} ~ \boldsymbol{\dot{\varepsilon}}_{i} \right]^T
-	\label{eq:wheeljacobian}
-\end{equation}
-where $\boldsymbol{\dot{q}}$ are the desired joint rates to command to the
-actuators and $\boldsymbol{\dot{\varepsilon}_{i}}$ contains contact angle and 
-slip rates for the respective kinematic chain. Each leg Jacobian $J_{i}$ 
-defines the
-contribution of its kinematic chain to the rover body motion. Considering a 
-single contact angle at each wheel and disregarding slip 
-($\boldsymbol{\dot{\varepsilon}_{i}} = [\dot{\delta}_{i}]$), the size of the 
-$J_{i}$
-matrix is $6 \times (n + 1)$ where $n$ corresponds to the DoF of the
-mechanism.
-
-The composite rover equations are obtained by combining the Jacobian
-matrices for all kinematic chains into a sparse matrix equation of appropriate
-dimensions. After rearranging into unknown (desired) and known (sensed or set) 
-body, joint and contact rates, a solution for the unknown rates vector is 
-obtained by applying the Moore-Penrose pseudoinverse. In the over-determined 
-case, this corresponds to the least-squares solution. The acquired joint rates 
-can then be commanded to the actuators.
-
-Internally, the algorithm is running at a fixed rate of 12.5 Hz, calculating 
-the unknown joint velocities at every time step. Different WW gaits (i.e. 
+The key element of the approach is the formulation of one Jacobian matrix per 
+kinematic chain (or ``leg'' of the rover) relating rover pose rates in 
+Cartesian coordinates to joint rates of the locomotion system. The full 
+velocity kinematics are obtained by combining the Jacobian 
+matrices for all kinematic chains into one sparse matrix equation which is 
+solved for the unknown joint rates using a least-squares approach. The 
+acquired rates can then be commanded to the actuators. Different WW gaits (i.e. 
 motion patterns~\cite{LucWalkingGaits}) are achieved by dynamically setting 
 constraints in the Jacobian (i.e. by defining set joint rates according to the 
-current phase of the WW motion). The implemented gaits are summarized in Table 
-~\ref{tab:GaitTable}. For the ``active'' wheels in a phase of a gait, a rolling 
-rate faster than the body speed is set as a constraint. The rolling rate of the 
-``inactive'' wheels is set to zero to keep a constant contact point on the 
-ground. The switch to the next phase is induced once the currently active 
-driving wheels reach the specified step length. The step length also indicates 
-the amount of (presumed) translation of the rover in body-$x$-direction during 
-one WW gait sequence.
+current phase of the WW motion).
 
 \footnotetext[1]{Optimally here refers to the best estimated value from a 
 least-squares perspective.}
