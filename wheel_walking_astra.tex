@@ -242,34 +242,29 @@ velocities and relates the rover pose rates to joint and contact rates as:
 where $\boldsymbol{\dot{q}}$ are the desired joint rates to command to the
 actuators and $\boldsymbol{\dot{\varepsilon}_{i}}$ contains contact angle and 
 slip rates for the respective kinematic chain. Each leg Jacobian $J_{i}$ 
-defines the
-contribution of its kinematic chain to the rover body motion. Considering a 
-single contact angle at each wheel and disregarding slip 
+defines the contribution of its kinematic chain to the rover body motion. 
+Considering a single contact angle at each wheel and disregarding slip 
 ($\boldsymbol{\dot{\varepsilon}_{i}} = [\dot{\delta}_{i}]$), the size of the 
-$J_{i}$
-matrix is $6 \times (n + 1)$ where $n$ corresponds to the DoF of the
+$J_{i}$ matrix is $6 \times (n + 1)$ where $n$ corresponds to the DoF of the
 mechanism.
 
 The composite rover equations are obtained by combining the Jacobian
 matrices for all kinematic chains into a sparse matrix equation of appropriate
-dimensions. After rearranging into unknown (desired) and known (sensed or set) 
-body, joint and contact rates, a solution for the unknown rates vector is 
-obtained by applying the Moore-Penrose pseudoinverse. In the over-determined 
-case, this corresponds to the least-squares solution. The acquired joint rates 
-can then be commanded to the actuators.
+dimensions. These are then solved for the unknown joint rates using a 
+least-squares approach. The acquired rates can then be commanded to the 
+actuators. Internally, the algorithm is running at a fixed rate of 12.5 Hz, 
+calculating the unknown joint rates at every time step.
 
-Internally, the algorithm is running at a fixed rate of 12.5 Hz, calculating 
-the unknown joint velocities at every time step. Different WW gaits (i.e. 
-motion patterns~\cite{LucWalkingGaits}) are achieved by dynamically setting 
-constraints in the Jacobian (i.e. by defining set joint rates according to the 
-current phase of the WW motion). The implemented gaits are summarized in Table 
-~\ref{tab:GaitTable}. For the ``active'' wheels in a phase of a gait, a rolling 
-rate faster than the body speed is set as a constraint. The rolling rate of the 
-``inactive'' wheels is set to zero to keep a constant contact point on the 
-ground. The switch to the next phase is induced once the currently active 
-driving wheels reach the specified step length. The step length also indicates 
-the amount of (presumed) translation of the rover in body-$x$-direction during 
-one WW gait sequence.
+Different WW gaits (i.e. motion patterns~\cite{LucWalkingGaits}) are achieved 
+by dynamically setting constraints in the Jacobian (i.e. by defining set joint 
+rates according to the current phase of the WW motion). The implemented gaits 
+are summarized in Table ~\ref{tab:GaitTable}. For the ``active'' wheels in a 
+phase of a gait, a rolling rate faster than the body speed is set as a 
+constraint. The rolling rate of the ``inactive'' wheels is set to zero to keep 
+a constant contact point on the ground. The switch to the next phase is induced 
+once the currently active driving wheels reach the specified step length. The 
+step length also indicates the amount of (presumed) translation of the rover in 
+body-$x$-direction during one WW gait sequence.
 
 \footnotetext[1]{Optimally here refers to the best estimated value from a 
 least-squares perspective.}
