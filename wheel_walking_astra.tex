@@ -2,7 +2,7 @@
 \pagestyle{empty}
 
 % introduce this option for the ESA publications style
-\bibliographystyle{alpha}
+%\bibliographystyle{alpha}
 
 \usepackage{graphicx,subfigure} %for figures \usepackage{subfig} %forsubfigures
 \usepackage[fleqn]{amsmath}    % need for subequations
@@ -111,7 +111,7 @@ section 6 the future work and test plan is explained.
 
 The rover platform used for the experiments described hereafter is an
 ExoMars-like scaled down version laboratory prototype. The ExoMars Testing
-Rover (ExoTeR)~\cite{Azkarate2015} mimics the locomotion configuration of
+Rover (ExoTeR) mimics the locomotion configuration of
 ExoMars (according to its design in 2007), a.k.a. triple-bogie passive
 suspension, with a parallelogram structure on top of each bogie. The locomotion
 subsystem comprises 6 wheels and 16 actuated joints, more precisely, 6 driving,
@@ -137,7 +137,7 @@ The general dimensions of the rover are summarised in table
 on the Effective Ground Pressure convention defined by JPL 
 in~\cite{ROB:ROB21481}.
 
-\begin{table}[h]
+\begin{table}[h!]
 	\begin{tabular}{ll}
 	Locomotion platform type       & $6~\times~4~\times~6$             \\
 	Size ($L~\times~W~\times~H$)   & $70~\times~70~\times~40$ ~\unit{cm$^3$} \\
@@ -189,7 +189,7 @@ solved for the unknown joint rates using a least-squares approach. The
 acquired rates can then be commanded to the actuators. Different WW gaits (i.e. 
 motion patterns~\cite{LucWalkingGaits}) are achieved by dynamically setting 
 constraints in the Jacobian (i.e. by defining set joint rates according to the 
-current phase of the WW motion).
+current phase of the WW motion). At this point, a more thorough explanation of this approach is well outside of the scope of this paper.
 
 \footnotetext[2]{Optimally here refers to the best estimated value from a 
 least-squares perspective.}
