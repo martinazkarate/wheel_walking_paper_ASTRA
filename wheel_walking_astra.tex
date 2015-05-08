@@ -13,7 +13,7 @@
 \usepackage{floatrow}
 \usepackage{float}
 \usepackage{array}
-%\usepackage{natbib}
+\usepackage{natbib}
 
 \graphicspath{{img/}}
 \restylefloat{table}
@@ -65,12 +65,12 @@ surface areas of Mars. Loose soil and fine dust terrain is the scenario where
 rovers may experience the most significant loss of their tractive performance.
 The extreme of these cases was encountered in the Spirit rover which got
 permanently stuck on May 2009 while traversing the loose sandy area of Troy
-~\cite{SpiritTrap}.
+~\citep{SpiritTrap}.
 
 %================================================================
 %Previous studies at JPL ~\cite{ROB:ROB21481} introduce the concept of the Effective Ground Pressure (EGP) as a first order of approximation for an inversely proportional indicator of the traversing capabilities of a rover. In relation to this, ExoMars' estimated EGP (considering an effectively larger wheel due to its flexible properties) is about 2.5 times the one of MER and MSL.
 %================================================================
-Following the Lunokhod mission, Russian engineers developed numerous planetary exploration rover concepts where they demostrated major increase in gradeability and obstacle negotiation performances by implementing a ``peristaltic" locomotion mode in some or a ``wheel-walking" mode in others ~\cite{Ehrenfreund1998}. The triple-bogie rover concept was conceived in the early phase of the ExoMars mission ~\cite{Patel2010} and has become the baseline for the rover's locomotion. Moreover this type of suspension has become widely accepted in the European space robotics community due to good locomotion performances and design simplicity. The location of the deployment actuators of the triple-bogie concept offers the WW mode for free and this is another great benefit of this suspension concept.
+Following the Lunokhod mission, Russian engineers developed numerous planetary exploration rover concepts where they demostrated major increase in gradeability and obstacle negotiation performances by implementing a ``peristaltic" locomotion mode in some or a ``wheel-walking" mode in others ~\citep{Ehrenfreund1998}. The triple-bogie rover concept was conceived in the early phase of the ExoMars mission ~\citep{Patel2010} and has become the baseline for the rover's locomotion. Moreover this type of suspension has become widely accepted in the European space robotics community due to good locomotion performances and design simplicity. The location of the deployment actuators of the triple-bogie concept offers the WW mode for free and this is another great benefit of this suspension concept.
 
 Based on the above and given that the triple-bogie concept will probably have a
 role in future European exploration missions, the Automation \& Robotics
@@ -135,7 +135,7 @@ also be seen.
 The general dimensions of the rover are summarised in table 
 \ref{tab:ExoterDimensionsTable} below. The ground pressure calculation is based 
 on the Effective Ground Pressure convention defined by JPL 
-in~\cite{ROB:ROB21481}.
+in~\citep{ROB:ROB21481}.
 
 \begin{table}[h!]
 	\begin{tabular}{ll}
@@ -175,9 +175,9 @@ WW evaluation presented in this paper uses a method which is able to
 point by fusing, in a unified framework, desired body velocities to joint 
 motion commands as a whole.  The implementation of a complete motion model 
 behaves more consistent and stable than previous WW techniques. The model makes 
-use of the transformation approach~\cite{Tarokh2005} which is in turn based 
-on~\cite{MuirNeumann1987} to accurately model 6-DoF kinematics. It derives from 
-the work in~\cite{Hidalgo-Carrio2014} to invert the Jacobian formula from the 
+use of the transformation approach~\citep{Tarokh2005} which is in turn based 
+on~\citep{MuirNeumann1987} to accurately model 6-DoF kinematics. It derives from 
+the work in~\citep{Hidalgo-Carrio2014} to invert the Jacobian formula from the 
 odometry kinematics.
 
 The key element of the approach is the formulation of one Jacobian matrix per 
@@ -187,7 +187,7 @@ velocity kinematics are obtained by combining the Jacobian
 matrices for all kinematic chains into one sparse matrix equation which is 
 solved for the unknown joint rates using a least-squares approach. The 
 acquired rates can then be commanded to the actuators. Different WW gaits (i.e. 
-motion patterns~\cite{LucWalkingGaits}) are achieved by dynamically setting 
+motion patterns~\citep{LucWalkingGaits}) are achieved by dynamically setting 
 constraints in the Jacobian (i.e. by defining set joint rates according to the 
 current phase of the WW motion). At this point, a more thorough explanation of this approach is well outside of the scope of this paper.
 
@@ -258,7 +258,7 @@ normal driving (ND) or WW mode and the data starts being recorded.
 
 \subsubsection{Results} As already mentioned both locomotion modes, i.e ND
 versus WW, are compared. The used WW gait is syde-by-syde or left-right
-~\cite{LucWalkingGaits}. Both modes are commanded at a 2 ~\unit{cm/s} body velocity.
+~\citep{LucWalkingGaits}. Both modes are commanded at a 2 ~\unit{cm/s} body velocity.
 
 \begin{figure}[h!]
     \centering	
@@ -356,7 +356,7 @@ Constitution                                                      & \begin{tabul
 The ES3 itself simulates a coarse sandy to gravelly material occurring in
 scree, polymodal surficial lags and local coarser aeolian accumulations. The
 coarse scree and aeolian accumulations can occur in terrain with rocky
-escarpments \cite{michaud2014}.
+escarpments \citep{michaud2014}.
 
 
 %Soil ES3-OMR with gravel: Full description of this soil: OMR DRY (from Sibelco
